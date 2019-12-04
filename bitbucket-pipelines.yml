@@ -28,7 +28,7 @@ pipelines:
         script:
           - pipe: atlassian/heroku-deploy:0.1.1
             variables:
-              HEROKU_API_KEY: ''
+              HEROKU_API_KEY: '7c438dba-9978-4e1f-a965-fb71443289f5'
               HEROKU_APP_NAME: 'green-quiz'
               ZIP_FILE: "application.tgz"
 
