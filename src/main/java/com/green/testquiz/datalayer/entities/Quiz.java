@@ -20,5 +20,6 @@ public class Quiz {
     protected String shortDescription;
     protected String longDescription;
     protected QuizMode quizMode;
-    protected Set<Question> questions;
+    protected Set<Question> questions = new HashSet<>();
+
 }
