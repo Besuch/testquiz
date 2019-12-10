@@ -1,20 +1,19 @@
 package com.green.testquiz.datalayer.entities;
 
-import com.green.testquiz.enums.QuizMode;
-
-import java.util.HashSet;
-import java.util.Set;
-
+import com.green.testquiz.enums.QuestionType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.bson.types.ObjectId;
 
-import lombok.Data;
+import java.util.Set;
 
 @Data
+@AllArgsConstructor
 public class Question {
     private ObjectId quizId;
     private String name;
     private String shortDescription;
     private String longDescription;
-    private QuizMode quizMode;
-    private Set<Question> questions = new HashSet<>();
+    private QuestionType quizMode;
+    private Set<Option> questions;
 }
