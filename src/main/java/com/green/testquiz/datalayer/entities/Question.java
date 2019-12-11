@@ -15,5 +15,5 @@ public class Question {
     private String shortDescription;
     private String longDescription;
     private QuestionType quizMode;
-    private Set<Option> questions;
+    private Set<Option> options;
 }
