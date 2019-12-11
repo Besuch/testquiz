@@ -1,13 +1,23 @@
 package com.green.testquiz.datalayer.entities;
 
+import com.green.testquiz.enums.QuizMode;
 import org.bson.types.ObjectId;
 
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
-public class Result extends Quiz {
+public class Result {
     private ObjectId resultId;
     private Double statistics;
     private ObjectId accountId;
     private Integer cursor;
+    private ObjectId quizId;
+    private String name;
+    private String shortDescription;
+    private String longDescription;
+    private QuizMode quizMode;
+    private Set<Question> questions = new HashSet<>();
 }
