@@ -6,12 +6,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Quiz {
     protected ObjectId quizId;
     protected String name;
