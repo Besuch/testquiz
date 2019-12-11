@@ -15,5 +15,5 @@ public class QuizDto {
 	String shortDescription;
 	String longDescription;
 	QuizMode quizMode;
-	Set<QuestionDto> questionDtos = new HashSet<>();
+	Set<QuestionDto> questionDtos;
 }

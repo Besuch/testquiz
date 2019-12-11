@@ -12,5 +12,5 @@ public class QuestionDto {
 	String questionId;
 	String text;
 	QuestionType questionType;
-	Set<OptionDto> optionDtos = new HashSet<>();
+	Set<OptionDto> optionDtos;
 }
