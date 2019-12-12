@@ -4,7 +4,8 @@ import {
     getAllQuizesNamesSuccess,
     getChosenQuizSuccess,
     resetCardPageInfo,
-    GET_CHOSEN_QUIZ
+    GET_CHOSEN_QUIZ,
+    SEND_REPORT_TO_BACKEND, sendReportToBackEnd
 } from "../action";
 
 // select - get state
@@ -12,6 +13,7 @@ import {
 export function* watchQuizSaga() {
     yield takeEvery(GET_QUIZ_NAMES_LIST, getQuizNamesListRequest);
     yield takeEvery(GET_CHOSEN_QUIZ, loadChosenQuiz);
+    yield takeEvery(SEND_REPORT_TO_BACKEND, sendReportToBack);
 }
 
 
@@ -188,6 +190,10 @@ function* loadChosenQuiz({payload}) {
     );
     yield put(getChosenQuizSuccess(responce));
     yield put(resetCardPageInfo('QuestionCard'));
+}
+
+function sendReportToBack({payload}) {
+    console.log(JSON.stringify(payload))
 }
 
 

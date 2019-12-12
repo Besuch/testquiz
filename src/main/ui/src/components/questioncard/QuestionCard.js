@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {showNextQuestion, resetCardPageInfo, showPrevQuestion} from '../../action';
+import {showNextQuestion, resetCardPageInfo, showPrevQuestion, sendReportToBackEnd} from '../../action';
 import RadioButtonsGroup from '../radiobuttonsgroup/RadioButtonsGroup';
 import {useDispatch} from "react-redux";
-//import CheckboxesGroup from "../checkboxgroup/CheckboxesGroup"
+import {Report} from '../model/Report';
 
 const useStyles = makeStyles({
     card: {
@@ -41,11 +41,16 @@ export default function QuestionCard(props) {
     const [value, setValue] = React.useState(null);
 
 
+
     let button;
     if(count === arrayQuestionsLength -1){
-        button = <Button onClick={ () => {dispatch(resetCardPageInfo("ResultCard"));}} size="small" >Submit</Button>;
+        button = <Button onClick={ () => {
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, true)));
+            dispatch(resetCardPageInfo("ResultCard"));}} size="small" >Submit</Button>;
     } else {
-        button = <Button onClick={ () => { dispatch(showNextQuestion({id: question.questionId, value: value}));} } size="small" >Next</Button>;
+        button = <Button onClick={ () => {
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
+            dispatch(showNextQuestion({id: question.questionId, value: value}));} } size="small" >Next</Button>;
     }
 
     let returnButton;
@@ -75,9 +80,6 @@ export default function QuestionCard(props) {
                     <Typography variant="h5" component="h2">
                         Question: {question.text}
                     </Typography>
-                    {/*<Typography className={classes.pos} color="textSecondary">*/}
-                        {/*{JSON.stringify(question.options)}*/}
-                    {/*</Typography>*/}
                 </CardContent>
                 {optiondisplay}
                 <CardActions>
