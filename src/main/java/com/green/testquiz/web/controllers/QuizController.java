@@ -2,8 +2,8 @@ package com.green.testquiz.web.controllers;
 
 import com.green.testquiz.converter.QuizConverter;
 import com.green.testquiz.datalayer.entities.Quiz;
+import com.green.testquiz.presentation.QuizDto;
 import com.green.testquiz.service.QuizService;
-import com.green.testquiz.web.dto.QuizDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
