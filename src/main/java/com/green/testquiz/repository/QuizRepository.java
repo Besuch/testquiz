@@ -3,9 +3,8 @@ package com.green.testquiz.repository;
 import com.green.testquiz.datalayer.entities.Quiz;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by medvedevyakov on 2019-12-12.
- */
+@Repository
 public interface QuizRepository extends MongoRepository<Quiz, ObjectId> {
 }
