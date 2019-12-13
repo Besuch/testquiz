@@ -1,4 +1,3 @@
-import { combineReducers} from "redux";
 import {
     GET_CHOSEN_QUIZ_SUCCESS,
     GET_QUIZ_LIST_SUCCESS,
@@ -23,10 +22,6 @@ const initialState = {
     currentQuestion: null,
 };
 
-// export default combineReducers({
-//
-// })
-
 export default (state = initialState, action) => {
     switch (action.type) {
         case GET_QUIZ_LIST_SUCCESS:
@@ -46,7 +41,7 @@ export default (state = initialState, action) => {
 
         case SHOW_NEXT_QUESTION:
             console.log("payload ", action.payload);
-            const { id, value} = action.payload;
+            const {id, value} = action.payload;
             const questionsArr = state.currentQuiz.questions;
             const currentQuestion = questionsArr.find(question => question.questionId === id);
             const options = currentQuestion.options.map(option => {

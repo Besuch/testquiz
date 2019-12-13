@@ -28,6 +28,7 @@ const useStyles = makeStyles({
     },
 });
 
+
 export default function QuestionCard(props) {
     const dispatch = useDispatch();
 
@@ -39,16 +40,25 @@ export default function QuestionCard(props) {
     const classes = useStyles();
     let quizMode = quiz.quizMode;
     const [value, setValue] = React.useState(null);
+    let disableBtn;
 
+    if(quizMode === "MULTI_WAY_DIRECTION") {
+        disableBtn = false;
+    }else {
+        disableBtn = true;
+        for (let i = 0; i < question.options.length; i++) {
+            if (question.options[i].isChecked) disableBtn = false;
+        }
+    }
 
 
     let button;
     if(count === arrayQuestionsLength -1){
-        button = <Button onClick={ () => {
+        button = <Button disabled={disableBtn} onClick={ () => {
             dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, true)));
             dispatch(resetCardPageInfo("ResultCard"));}} size="small" >Submit</Button>;
     } else {
-        button = <Button onClick={ () => {
+        button = <Button disabled={disableBtn} onClick={ () => {
             dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
             dispatch(showNextQuestion({id: question.questionId, value: value}));} } size="small" >Next</Button>;
     }

@@ -1,11 +1,11 @@
-import {call, put, takeEvery, throttle} from 'redux-saga/effects';
+import {call, put, takeEvery,} from 'redux-saga/effects';
 import {
     GET_QUIZ_NAMES_LIST,
     getAllQuizesNamesSuccess,
     getChosenQuizSuccess,
     resetCardPageInfo,
     GET_CHOSEN_QUIZ,
-    SEND_REPORT_TO_BACKEND, sendReportToBackEnd
+    SEND_REPORT_TO_BACKEND,
 } from "../action";
 
 // select - get state
@@ -26,7 +26,7 @@ function getRequestByUrl(url) {
         "name": "React.js quiz",
         "shortDescription": null,
         "longDescription": null,
-        "quizMode": "TWO_WAY_DIRECTION",
+        "quizMode": "MULTI_WAY_DIRECTION",
         "questions": [
             {
                 "questionId": "5df015a59396fc79850be5cf",
@@ -164,7 +164,7 @@ function getRequestByUrl(url) {
 function* getQuizNamesListRequest() {
     const responce =  yield call(
         getRequestByUrl2, "localhost:8080"
-    )
+    );
     yield put(getAllQuizesNamesSuccess(responce))
 }
 

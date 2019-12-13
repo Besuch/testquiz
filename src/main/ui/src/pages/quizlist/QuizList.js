@@ -17,7 +17,7 @@ export const QuizList = () => {
 
     useEffect( () => { //called the first time when component was loaded
         dispatch(getAllQuizesNames())
-    }, []);
+    },[]);
 
     return(
         <>
