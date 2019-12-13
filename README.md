@@ -1,4 +1,7 @@
 
+
+0) Start mongo db: 
+docker run -d -p 27017-27019:27017-27019 mongo
 1) mvn clean package
 2) java -jar target/quiz.jar OR just run QuizApplication in IDE
 3) go to http://localhost:8080 in browser
