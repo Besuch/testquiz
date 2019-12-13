@@ -1,6 +1,7 @@
 package com.green.testquiz.service.impl;
 
 import com.green.testquiz.datalayer.entities.*;
+import com.green.testquiz.enums.QuizMode;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
 import com.green.testquiz.repository.ResultRepository;
@@ -17,6 +18,9 @@ import java.util.Optional;
 public class ResultServiceImpl implements ResultService {
 
     @Autowired
+    private QuizRepository quizRepository;
+
+    @Autowired
     private ResultRepository resultRepository;
 
     @Autowired
@@ -24,16 +28,31 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public Result getResult(String quizId, String email) {
+        Result result;
+        //TODO if not found logic
         Account account = accountRepository.findByEmail(email);
         Optional<Result> optionalResult = resultRepository.findByQuizIdAndAccountId(new ObjectId(quizId), account.getAccountId()).stream()
-                .filter(result -> result.getStatistics() == null)
+                .filter(item -> item.getStatistics() == null)
                 .findFirst();
 
         if (optionalResult.isPresent()) {
-            return optionalResult.get();
+            result = optionalResult.get();
         } else {
-            // TODO QT-16
-            return null;
+            Quiz quiz = quizRepository.findById(new ObjectId(quizId)).get();
+            result = new Result(
+                    new ObjectId(),
+                    null,
+                    account.getAccountId(),
+                    quiz.getQuizMode() == QuizMode.ONE_WAY_DIRECTION ? 0 : null,
+                    quiz.getQuizId(),
+                    quiz.getName(),
+                    quiz.getShortDescription(),
+                    quiz.getLongDescription(),
+                    quiz.getQuizMode(),
+                    quiz.getQuestions()
+                    );
+            resultRepository.save(result);
         }
+        return result;
     }
 }

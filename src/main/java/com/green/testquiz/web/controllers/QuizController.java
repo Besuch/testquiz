@@ -33,7 +33,7 @@ public class QuizController {
     public QuizDto getQuiz(@PathVariable String quizId, @RequestParam String email) {
         Quiz quiz = quizService.getQuiz(quizId, email);
         return quizConverter.toDto(quiz);
-        //TODO QT-16
+        //TODO QT-16 (use ResultServiceImpl)
     }
 
     @GetMapping("/api/quizzes")
