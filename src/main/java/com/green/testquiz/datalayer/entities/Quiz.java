@@ -10,15 +10,18 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Quiz {
-    protected ObjectId quizId;
-    protected String name;
-    protected String shortDescription;
-    protected String longDescription;
-    protected QuizMode quizMode;
-    protected Set<Question> questions;
+    @Id
+    private ObjectId quizId;
+    private String name;
+    private String shortDescription;
+    private String longDescription;
+    private QuizMode quizMode;
+    private Set<Question> questions = new HashSet<>();
+
 }

@@ -4,12 +4,14 @@ import com.green.testquiz.enums.QuizMode;
 import org.bson.types.ObjectId;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 public class Result {
+    @Id
     private ObjectId resultId;
     private Double statistics;
     private ObjectId accountId;
