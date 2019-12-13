@@ -7,6 +7,7 @@ import {
     GET_CHOSEN_QUIZ,
     SEND_REPORT_TO_BACKEND, sendReportToBackEnd
 } from "../action";
+import configs from '../configs'
 
 // select - get state
 
@@ -18,7 +19,7 @@ export function* watchQuizSaga() {
 
 
 function getRequestByUrl(url) {
-    // return fetch(url).then(responce => responce.json()).then(responce => responce)
+    // return fetch(url).then(response => response.json()).then(response => response)
     //     .catch(error => error);
 
     return {
@@ -162,25 +163,10 @@ function getRequestByUrl(url) {
 }
 
 function* getQuizNamesListRequest() {
-    const responce =  yield call(
-        getRequestByUrl2, "localhost:8080"
-    )
-    yield put(getAllQuizesNamesSuccess(responce))
-}
-
-function getRequestByUrl2(url) {
-    return [{
-        "id": "5df015a59396fc79850be5e5",
-        "title": "React Test",
-        "description": "English test is a 5-question, 3-minute test that measures your understanding of the conventions of standard English."
-    },
-        {
-            "id": "5df015a59396fc79850be5cf",
-            "title": "French Test",
-            "description": "French test is a 4-question, 2-minute test that measures your understanding of the conventions of standard French."
-
-        }
-    ]
+    const response = yield fetch(configs.getQuizzesUrl).then(response => response.json()).then(response => response)
+        .catch(error => error);
+    console.log("all quizzes: ", response);
+    yield put(getAllQuizesNamesSuccess(response))
 }
 
 function* loadChosenQuiz({payload}) {

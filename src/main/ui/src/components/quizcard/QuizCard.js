@@ -38,16 +38,16 @@ export default function QuizCard(props) {
     return (
         <>
             {quizNameArr.length && quizNameArr.map(item => (
-                <Card className={classes.card} key={item.id}>
+                <Card className={classes.card} key={item.quizId}>
                     <CardContent>
                         <Typography className={classes.pos} color="textSecondary">
-                            Code of the test is : {item.id}
+                            Code of the test is : {item.quizId}
                         </Typography>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Name of the test: {item.title}
+                            Name of the test: {item.name}
                         </Typography>
                         <Typography variant="body2" component="p">
-                            Description: {item.description}
+                            Description: {item.shortDescription}
                         </Typography>
                     </CardContent>
                     <CardActions>
