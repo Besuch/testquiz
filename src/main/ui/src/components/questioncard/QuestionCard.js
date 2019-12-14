@@ -5,7 +5,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {showNextQuestion, resetCardPageInfo, showPrevQuestion, sendReportToBackEnd} from '../../action';
+import {showNextQuestion, resetCardPageInfo, showPrevQuestion,
+    sendReportToBackEnd, setCurQuizToNone} from '../../action';
 import RadioButtonsGroup from '../radiobuttonsgroup/RadioButtonsGroup';
 import {useDispatch} from "react-redux";
 import {Report} from '../model/Report';
@@ -56,16 +57,21 @@ export default function QuestionCard(props) {
     if(count === arrayQuestionsLength -1){
         button = <Button disabled={disableBtn} onClick={ () => {
             dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, true)));
-            dispatch(resetCardPageInfo("ResultCard"));}} size="small" >Submit</Button>;
+            dispatch(resetCardPageInfo("ResultCard"));
+            //dispatch(setCurQuizToNone());
+        }} size="small" >Submit</Button>;
     } else {
         button = <Button disabled={disableBtn} onClick={ () => {
             dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
-            dispatch(showNextQuestion({id: question.questionId, value: value}));} } size="small" >Next</Button>;
+            dispatch(showNextQuestion({id: question.questionId, value: value}));
+        }} size="small" >Next</Button>;
     }
 
     let returnButton;
     if(count !== 0){
-        returnButton =  <Button onClick={ () =>{dispatch(showPrevQuestion())} } size="small" >Previous</Button>;
+        returnButton =  <Button onClick={ () =>{
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
+            dispatch(showPrevQuestion({id: question.questionId, value: value}))} } size="small" >Previous</Button>;
     }
 
 

@@ -8,6 +8,7 @@ export const RESET_CARD_PAGE_INFO = 'RESET_CARD_PAGE_INFO';
 export const SHOW_NEXT_QUESTION = 'SHOW_NEXT_QUESTION';
 export const SHOW_PREV_BUTTON ='SHOW_PREV_BUTTON';
 export const SEND_REPORT_TO_BACKEND = 'SEND_REPORT_TO_BACKEND';
+export const SET_CUR_QUIZ_TO_NONE = 'SET_CUR_QUIZ_TO_NONE';
 
 export function getAllQuizesNames() {
     return {
@@ -53,9 +54,16 @@ export function sendReportToBackEnd(payload){
     }
 }
 
-export function showPrevQuestion() {
+export function showPrevQuestion(payload) {
     return{
-        type: SHOW_PREV_BUTTON
+        type: SHOW_PREV_BUTTON,
+        payload: payload
+    }
+}
+
+export function setCurQuizToNone() {
+    return{
+        type: SET_CUR_QUIZ_TO_NONE,
     }
 }
 
