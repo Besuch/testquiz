@@ -18,6 +18,11 @@ public class QuizServiceImpl implements QuizService {
     private QuizRepository quizRepository;
 
     @Override
+    public Quiz getQuiz(String quizId, String email) {
+        return quizRepository.findById((new ObjectId(quizId))).orElse(null);
+    }
+
+    @Override
     public List<Quiz> findAll() {
         return quizRepository.findAll();
     }
@@ -26,7 +31,7 @@ public class QuizServiceImpl implements QuizService {
     public Quiz create(Quiz quiz) {
         quiz.setQuizId(new ObjectId());
         for(Question question : quiz.getQuestions()) {
-            question.setQuizId(new ObjectId());
+            question.setQuestionId(new ObjectId());
             for (Option option : question.getOptions()) {
                 option.setOptionId(new ObjectId());
             }

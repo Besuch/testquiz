@@ -29,7 +29,7 @@ public class MockQuizList {
         options1.add(o3);
         options1.add(o4);
         Question q1 = new Question(new ObjectId(), "Method to change state",
-                "Which method call causes a component to change state?", "",
+                "Which method call causes a component to change state?",
                 QuestionType.ONE_CHOICE, options1);
 
         Set<Option> options2 = new HashSet<>();
@@ -41,7 +41,7 @@ public class MockQuizList {
         options2.add(o23);
         Question q2 = new Question( new ObjectId(), "Stateless Functional Components",
                 "Does Stateless Functional Components in React.js invoke life cycle methods?",
-                "", QuestionType.ONE_CHOICE, options2);
+                QuestionType.ONE_CHOICE, options2);
 
 
         Set<Option> options3 = new HashSet<>();
@@ -58,7 +58,7 @@ public class MockQuizList {
         options3.add(o33);
         Question q3 = new Question( new ObjectId(), "Child component access",
                 "Is it possible to access the value of the element of the child component through the ref of this element?",
-                "", QuestionType.ONE_CHOICE, options3);
+                QuestionType.ONE_CHOICE, options3);
 
         Set<Option> options4 = new HashSet<>();
         Option o41 = new Option(new ObjectId(), "Yes", false,false);
@@ -69,7 +69,7 @@ public class MockQuizList {
         options4.add(o43);
         Question q4 = new Question( new ObjectId(), "Using the setState()",
                 "Is using the setState () method acceptable in componentDidMount()?",
-                "", QuestionType.ONE_CHOICE, options4);
+                QuestionType.ONE_CHOICE, options4);
 
         Set<Option> options5 = new HashSet<>();
         Option o51 = new Option(new ObjectId(), "Shadow DOM", false, false);
@@ -81,7 +81,7 @@ public class MockQuizList {
         options5.add(o53);
         Question q5 = new Question( new ObjectId(), "What DOM does React.js ?",
                 "What DOM does React.js interact with?",
-                "", QuestionType.ONE_CHOICE, options5);
+                QuestionType.ONE_CHOICE, options5);
 
         QUESTIONS.add(q1);
         QUESTIONS.add(q2);
