@@ -5,7 +5,6 @@ import com.green.testquiz.enums.QuizMode;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
 import com.green.testquiz.repository.ResultRepository;
-import com.green.testquiz.service.QuizService;
 import com.green.testquiz.service.ResultService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +53,27 @@ public class ResultServiceImpl implements ResultService {
             resultRepository.save(result);
         }
         return result;
+    }
+
+    @Override
+    public Result save(String email, String quizId, String questionId, List<String> optionIdList) {
+        Account account = accountRepository.findByEmail(email);
+        Result result = resultRepository.findByQuizIdAndAccountId(new ObjectId(quizId), account.getAccountId()).stream()
+                .filter(item -> item.getStatistics() == null)
+                .findFirst()
+                .get();
+        Question question = result.getQuestions().stream()
+                .filter(item -> questionId.equals(item.getQuestionId()))
+                .findFirst()
+                .get();
+
+        for(Option option : question.getOptions()) {
+            if (optionIdList.contains(option.getOptionId())) {
+                option.setChecked(true);
+            } else {
+                option.setChecked(false);
+            }
+        }
+        return resultRepository.save(result);
     }
 }

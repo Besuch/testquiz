@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ResultRepository extends MongoRepository<Result, ObjectId> {
     List<Result> findByQuizIdAndAccountId(ObjectId quizId, ObjectId accountId);
+    List<Result> findByQuizIdAndAccountIdAndQuestionId(ObjectId quizId, ObjectId accountId, ObjectId quiestionId);
 }
