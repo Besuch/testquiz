@@ -8,7 +8,13 @@ import com.green.testquiz.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +50,13 @@ public class QuizController {
     public ResponseEntity<?> saveAnswer(@PathVariable String quizId, @PathVariable String questionId,
                                         @RequestParam String email, @RequestBody List<String> optionIdList) {
         resultService.save(email, quizId, questionId, optionIdList);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/api/result/{quizId}/questions/{questionId}/answers)")
+    public ResponseEntity<?> finishQuiz(@PathVariable String quizId, @PathVariable String questionId,
+                                        @RequestParam String email, @RequestBody List<String> optionIdList) {
+        resultService.finishQuiz(email, quizId, questionId, optionIdList);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
