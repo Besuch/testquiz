@@ -1,7 +1,7 @@
 package com.green.testquiz.web.controllers;
 
 import com.green.testquiz.converter.QuizConverter;
-import com.green.testquiz.datalayer.entities.Quiz;
+import com.green.testquiz.datalayer.entities.Result;
 import com.green.testquiz.presentation.QuizDto;
 import com.green.testquiz.service.QuizService;
 import com.green.testquiz.service.ResultService;
@@ -28,9 +28,8 @@ public class QuizController {
 
     @GetMapping("/api/quiz/{quizId}")
     public QuizDto getQuiz(@PathVariable String quizId, @RequestParam String email) {
-        Quiz quiz = quizService.getQuiz(quizId, email);
-        return quizConverter.toDto(quiz);
-        //TODO QT-16 (use ResultServiceImpl)
+        Result result = resultService.getResult(quizId, email);
+        return quizConverter.toDto(result);
     }
 
     @GetMapping("/api/quizzes")
