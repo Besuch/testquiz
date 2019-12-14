@@ -3,7 +3,6 @@ package com.green.testquiz.web.controllers;
 import com.green.testquiz.converter.QuizConverter;
 import com.green.testquiz.datalayer.entities.Quiz;
 import com.green.testquiz.service.QuizService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,5 +59,14 @@ class QuizControllerTest {
         verifyNoMoreInteractions(quizServiceMock);
         verify(quizConverterMock).toDto(quiz);
         verifyNoMoreInteractions(quizConverterMock);
+    }
+
+    @Test
+    void shouldSaveResult() {
+        //given
+
+        //when
+
+        //then
     }
 }
