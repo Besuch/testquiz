@@ -80,4 +80,21 @@ public class ResultServiceImpl implements ResultService {
         }
         return resultRepository.save(result);
     }
+
+    @Override
+    public Result finishQuiz(String email, String quizId, String questionId, List<String> optionIdList) {
+        Result result = save(email, quizId, questionId, optionIdList);
+        Long score = result.getQuestions().stream()
+                .filter(question -> {
+                    for(Option option : question.getOptions()) {
+                        if (option.isChecked() == option.isCorrect()) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .count();
+        result.setStatistics((double) (score/result.getQuestions().size()));
+        return resultRepository.save(result);
+    }
 }

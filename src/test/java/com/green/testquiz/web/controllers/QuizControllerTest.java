@@ -14,10 +14,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.util.HashSet;
-
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -63,14 +63,5 @@ class QuizControllerTest {
         verifyNoMoreInteractions(resultServiceMock);
         verify(quizConverterMock).toDto(result);
         verifyNoMoreInteractions(quizConverterMock);
-    }
-
-    @Test
-    void shouldSaveResult() {
-        //given
-
-        //when
-
-        //then
     }
 }
