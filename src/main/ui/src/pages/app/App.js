@@ -21,7 +21,8 @@ function App() {
         <React.Fragment>
             <Router>
               <Switch>
-                <Route exact path="/:email" component={QuizList}/>
+                {/* <Route exact path="/:email" component={QuizList}/> */}
+                <Route exact path="/" component={QuizList}/>
                 {/*<Route exact path="/quizQuestions" component={}/>*/}
                 <Route component={NoMatch}/>
               </Switch>

@@ -34,6 +34,8 @@ export default function QuestionCard(props) {
     const dispatch = useDispatch();
 
     const {store} = props;
+    console.log("store", store)
+    const email = store.email;
     let quiz = store.currentQuiz;
     let arrayQuestionsLength = quiz.questionDtos.length;
     let count = store.count;
@@ -54,15 +56,15 @@ export default function QuestionCard(props) {
 
 
     let button;
-    if(count === arrayQuestionsLength -1){
+    if(count === arrayQuestionsLength - 1){
         button = <Button disabled={disableBtn} onClick={ () => {
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, true)));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], true, email)));
             dispatch(resetCardPageInfo("ResultCard"));
-            //dispatch(setCurQuizToNone());
+            dispatch(setCurQuizToNone());
         }} size="small" >Submit</Button>;
     } else {
         button = <Button disabled={disableBtn} onClick={ () => {
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
             dispatch(showNextQuestion({id: question.questionId, value: value}));
         }} size="small" >Next</Button>;
     }
@@ -70,7 +72,7 @@ export default function QuestionCard(props) {
     let returnButton;
     if(count !== 0){
         returnButton =  <Button onClick={ () =>{
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
             dispatch(showPrevQuestion({id: question.questionId, value: value}))} } size="small" >Previous</Button>;
     }
 

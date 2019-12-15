@@ -6,8 +6,10 @@ import {
     resetCardPageInfo,
     GET_CHOSEN_QUIZ,
     SEND_REPORT_TO_BACKEND,
+    sendReportToBackEndResult,
 } from "../action";
 import configs from '../configs'
+import { getQuizByIdUrl, postProgressUrl, postResultUrl } from '../configs'
 
 export function* watchQuizSaga() {
     yield takeEvery(GET_QUIZ_NAMES_LIST, getQuizNamesListRequest);
@@ -24,23 +26,27 @@ function* getQuizNamesListRequest() {
 }
 
 function* loadChosenQuiz({ payload }) {
-    const getQuizByIdUrl = configs.getQuizByIdUrl + payload.quizId + '?email=' + payload.email;
-    console.log("getQuizByIdUrl = ", getQuizByIdUrl);
-    const quiz = yield fetch(getQuizByIdUrl).then(response => response.json()).then(response => response)
+    const url = getQuizByIdUrl(payload.quizId, payload.email);
+    const quiz = yield fetch(url).then(response => response.json()).then(response => response)
         .catch(error => error);
     yield put(getChosenQuizSuccess(quiz));
-    console.log("quiz", quiz);
     yield put(resetCardPageInfo('QuestionCard'));
 }
 
-function sendReportToBack({payload}) {
-    console.log(JSON.stringify(payload))
+function* sendReportToBack({ payload }) {
+    const url = payload.isQuizSubmited ? postResultUrl(payload.quizId, payload.questionID, payload.email) : postProgressUrl(payload.quizId, payload.questionID, payload.email);
+    const response = yield fetch(url, {
+        method: 'post',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(payload.option)
+    }).then(response => response.json()).then(response => response)
+        .catch(error => error);
+    console.log("sendReportToBack response", response);
+    if (payload.isQuizSubmited) {
+        yield put(sendReportToBackEndResult(response));
+    }
 }
-
-
-
-
-
-
-
-

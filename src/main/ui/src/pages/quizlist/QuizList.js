@@ -16,14 +16,14 @@ export const QuizList = ({ match }) => {
 
     useEffect(() => { //called the first time when component was loaded
         dispatch(getAllQuizesNames());
-        dispatch(setEmail(match.params.email));
+//        dispatch(setEmail(match.params.email));
     },[]);
 
     return (
         <>
             <Container maxWidth="sm">
                 {(cardState === 'QuestionCard') && <QuestionCard key={"1"} store={store} />}
-                {(cardState === 'ResultCard') && <ResultCard key={"2"} />}
+                {(cardState === 'ResultCard') && <ResultCard key={"2"} statistics={store.statistics} />}
                 {(cardState === 'QuizCard') && <QuizCard key={"3"} store={store} />}
             </Container>
         </>
