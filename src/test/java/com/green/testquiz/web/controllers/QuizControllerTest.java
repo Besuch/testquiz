@@ -1,9 +1,10 @@
 package com.green.testquiz.web.controllers;
 
 import com.green.testquiz.converter.QuizConverter;
-import com.green.testquiz.datalayer.entities.Quiz;
-import com.green.testquiz.service.QuizService;
-
+import com.green.testquiz.datalayer.entities.Result;
+import com.green.testquiz.enums.QuizMode;
+import com.green.testquiz.service.ResultService;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,9 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import java.util.HashSet;
+
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,7 +32,7 @@ class QuizControllerTest {
     private QuizController controller;
 
     @Mock
-    private QuizService quizServiceMock;
+    private ResultService resultServiceMock;
 
     @Mock
     private QuizConverter quizConverterMock;
@@ -45,20 +46,31 @@ class QuizControllerTest {
     @Test
     void shouldGetQuiz() throws Exception {
         //given
-        Quiz quiz = new Quiz();
-        String quizId = "1";
+        String quizId = "507f1f77bcf86cd799439011";
+        Result result = new Result(new ObjectId(), 15d, new ObjectId(),
+                3, new ObjectId(quizId), "quizName", "shortDescription",
+                "longDescription", QuizMode.ONE_WAY_DIRECTION, new HashSet<>());
         String email = "mail@mail.com";
         String path = BASE_URL + quizId + "?email=" + email;
-        when(quizServiceMock.getQuiz(quizId, email)).thenReturn(quiz);
+        when(resultServiceMock.getResult(quizId, email)).thenReturn(result);
         //when
         mockMvc.perform(
                 get(path)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         //then
-        verify(quizServiceMock).getQuiz(quizId, email);
-        verifyNoMoreInteractions(quizServiceMock);
-        verify(quizConverterMock).toDto(quiz);
+        verify(resultServiceMock).getResult(quizId, email);
+        verifyNoMoreInteractions(resultServiceMock);
+        verify(quizConverterMock).toDto(result);
         verifyNoMoreInteractions(quizConverterMock);
+    }
+
+    @Test
+    void shouldSaveResult() {
+        //given
+
+        //when
+
+        //then
     }
 }
