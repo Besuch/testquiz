@@ -34,10 +34,12 @@ export default function QuestionCard(props) {
     const dispatch = useDispatch();
 
     const {store} = props;
+    console.log("store", store)
+    const email = store.email;
     let quiz = store.currentQuiz;
-    let arrayQuestionsLength = quiz.questions.length;
+    let arrayQuestionsLength = quiz.questionDtos.length;
     let count = store.count;
-    let question = quiz.questions[count];
+    let question = quiz.questionDtos[count];
     const classes = useStyles();
     let quizMode = quiz.quizMode;
     const [value, setValue] = React.useState(null);
@@ -47,22 +49,22 @@ export default function QuestionCard(props) {
         disableBtn = false;
     }else {
         disableBtn = true;
-        for (let i = 0; i < question.options.length; i++) {
-            if (question.options[i].isChecked) disableBtn = false;
+        for (let i = 0; i < question.optionDtos.length; i++) {
+            if (question.optionDtos[i].isChecked) disableBtn = false;
         }
     }
 
 
     let button;
-    if(count === arrayQuestionsLength -1){
+    if(count === arrayQuestionsLength - 1){
         button = <Button disabled={disableBtn} onClick={ () => {
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, true)));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], true, email)));
             dispatch(resetCardPageInfo("ResultCard"));
-            //dispatch(setCurQuizToNone());
+            dispatch(setCurQuizToNone());
         }} size="small" >Submit</Button>;
     } else {
         button = <Button disabled={disableBtn} onClick={ () => {
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
             dispatch(showNextQuestion({id: question.questionId, value: value}));
         }} size="small" >Next</Button>;
     }
@@ -70,7 +72,7 @@ export default function QuestionCard(props) {
     let returnButton;
     if(count !== 0){
         returnButton =  <Button onClick={ () =>{
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, {value: value}, false)));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
             dispatch(showPrevQuestion({id: question.questionId, value: value}))} } size="small" >Previous</Button>;
     }
 

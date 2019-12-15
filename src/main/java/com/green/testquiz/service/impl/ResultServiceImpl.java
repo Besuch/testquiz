@@ -67,12 +67,12 @@ public class ResultServiceImpl implements ResultService {
                 .findFirst()
                 .get();
         Question question = result.getQuestions().stream()
-                .filter(item -> questionId.equals(item.getQuestionId()))
+                .filter(item -> questionId.equals(item.getQuestionId().toHexString()))
                 .findFirst()
                 .get();
 
         for(Option option : question.getOptions()) {
-            if (optionIdList.contains(option.getOptionId())) {
+            if (optionIdList.contains(option.getOptionId().toHexString())) {
                 option.setChecked(true);
             } else {
                 option.setChecked(false);
@@ -84,17 +84,18 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public Result finishQuiz(String email, String quizId, String questionId, List<String> optionIdList) {
         Result result = save(email, quizId, questionId, optionIdList);
-        Long score = result.getQuestions().stream()
+        Double score = (double) result.getQuestions().stream()
                 .filter(question -> {
                     for(Option option : question.getOptions()) {
-                        if (option.isChecked() == option.isCorrect()) {
+                        if (option.isChecked() != option.isCorrect()) {
                             return false;
                         }
                     }
                     return true;
                 })
                 .count();
-        result.setStatistics((double) (score/result.getQuestions().size()));
+        Double percents = score / result.getQuestions().size() * 100;
+        result.setStatistics(percents);
         return resultRepository.save(result);
     }
 }

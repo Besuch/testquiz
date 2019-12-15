@@ -1,3 +1,4 @@
+export const SET_EMAIL = 'SET_EMAIL';
 export const GET_QUIZ_LIST_SUCCESS = 'GET_QUIZ_LIST_SUCCESS';
 export const GET_QUIZ_NAMES_LIST = 'GET_QUIZ_NAMES_LIST';
 export const GET_QUIZ_NAMES_LIST_SUCCESS = 'GET_QUIZ_NAMES_LIST_SUCCESS';
@@ -8,11 +9,19 @@ export const RESET_CARD_PAGE_INFO = 'RESET_CARD_PAGE_INFO';
 export const SHOW_NEXT_QUESTION = 'SHOW_NEXT_QUESTION';
 export const SHOW_PREV_BUTTON ='SHOW_PREV_BUTTON';
 export const SEND_REPORT_TO_BACKEND = 'SEND_REPORT_TO_BACKEND';
+export const SEND_REPORT_TO_BACKEND_RESULT = 'SEND_REPORT_TO_BACKEND_RESULT';
 export const SET_CUR_QUIZ_TO_NONE = 'SET_CUR_QUIZ_TO_NONE';
+
 
 export function getAllQuizesNames() {
     return {
         type: GET_QUIZ_NAMES_LIST,
+    }
+}
+
+export function setEmail(payload) {
+    return {
+        type: SET_EMAIL, payload
     }
 }
 
@@ -50,6 +59,13 @@ export function showNextQuestion(paylod) {
 export function sendReportToBackEnd(payload){
     return{
         type: SEND_REPORT_TO_BACKEND,
+        payload: payload
+    }
+}
+
+export function sendReportToBackEndResult(payload){
+    return{
+        type: SEND_REPORT_TO_BACKEND_RESULT,
         payload: payload
     }
 }

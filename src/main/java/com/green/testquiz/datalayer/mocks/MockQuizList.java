@@ -9,9 +9,6 @@ import org.bson.types.ObjectId;
 
 import java.util.*;
 
-/**
- * Created by medvedevyakov on 2019-12-10.
- */
 public class MockQuizList {
 
     private static Quiz QUIZ;
@@ -39,8 +36,9 @@ public class MockQuizList {
         options2.add(o21);
         options2.add(o22);
         options2.add(o23);
-        Question q2 = new Question( new ObjectId(), "Stateless Functional Components",
+        Question q2 = new Question( new ObjectId(),
                 "Does Stateless Functional Components in React.js invoke life cycle methods?",
+                "Stateless Functional Components",
                 QuestionType.ONE_CHOICE, options2);
 
 
@@ -56,8 +54,9 @@ public class MockQuizList {
         options3.add(o31);
         options3.add(o32);
         options3.add(o33);
-        Question q3 = new Question( new ObjectId(), "Child component access",
+        Question q3 = new Question( new ObjectId(),
                 "Is it possible to access the value of the element of the child component through the ref of this element?",
+                "Child component access",
                 QuestionType.ONE_CHOICE, options3);
 
         Set<Option> options4 = new HashSet<>();
@@ -67,8 +66,9 @@ public class MockQuizList {
         options4.add(o41);
         options4.add(o42);
         options4.add(o43);
-        Question q4 = new Question( new ObjectId(), "Using the setState()",
+        Question q4 = new Question( new ObjectId(),
                 "Is using the setState () method acceptable in componentDidMount()?",
+                "Using the setState()",
                 QuestionType.ONE_CHOICE, options4);
 
         Set<Option> options5 = new HashSet<>();
@@ -79,8 +79,9 @@ public class MockQuizList {
         options5.add(o51);
         options5.add(o52);
         options5.add(o53);
-        Question q5 = new Question( new ObjectId(), "What DOM does React.js ?",
+        Question q5 = new Question( new ObjectId(),
                 "What DOM does React.js interact with?",
+                "What DOM does React.js ?",
                 QuestionType.ONE_CHOICE, options5);
 
         QUESTIONS.add(q1);
