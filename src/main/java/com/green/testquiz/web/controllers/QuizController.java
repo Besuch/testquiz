@@ -1,8 +1,10 @@
 package com.green.testquiz.web.controllers;
 
 import com.green.testquiz.converter.QuizConverter;
+import com.green.testquiz.converter.ResultConverter;
 import com.green.testquiz.datalayer.entities.Result;
 import com.green.testquiz.presentation.QuizDto;
+import com.green.testquiz.presentation.ResultDto;
 import com.green.testquiz.service.QuizService;
 import com.green.testquiz.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,6 +34,9 @@ public class QuizController {
 
     @Autowired
     private ResultService resultService;
+
+    @Autowired
+    private ResultConverter resultConverter;
 
     @GetMapping("/api/quiz/{quizId}")
     public QuizDto getQuiz(@PathVariable String quizId, @RequestParam String email) {
@@ -57,5 +63,12 @@ public class QuizController {
                                         @RequestParam String email, @RequestBody List<String> optionIdList) {
         Result result = resultService.finishQuiz(email, quizId, questionId, optionIdList);
         return new ResponseEntity<>(result.getStatistics(), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/results")
+    public Set<ResultDto> findAllResults() {
+        return resultService.findAll().stream()
+                .map(resultConverter::toDto)
+                .collect(Collectors.toSet());
     }
 }

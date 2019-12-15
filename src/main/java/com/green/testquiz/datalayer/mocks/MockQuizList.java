@@ -3,11 +3,15 @@ package com.green.testquiz.datalayer.mocks;
 import com.green.testquiz.datalayer.entities.Option;
 import com.green.testquiz.datalayer.entities.Question;
 import com.green.testquiz.datalayer.entities.Quiz;
+import com.green.testquiz.datalayer.entities.Result;
 import com.green.testquiz.enums.QuestionType;
 import com.green.testquiz.enums.QuizMode;
 import org.bson.types.ObjectId;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by medvedevyakov on 2019-12-10.
@@ -17,11 +21,12 @@ public class MockQuizList {
     private static Quiz QUIZ;
     private static Set<Question> QUESTIONS = new HashSet<>();
     public static final List<Quiz> MOCK_QUIZ_LIST = new ArrayList<>();
+    public static final Set<Result> MOCK_RESULT = new HashSet<>();
 
     static {
         Set<Option> options1 = new HashSet<>();
         Option o1 = new Option(new ObjectId(), "updateState()", false , false);
-        Option o2 = new Option(new ObjectId(), "changeState()", false, false);
+        Option o2 = new Option(new ObjectId(), "changeState()", false, true);
         Option o3 = new Option(new ObjectId(), "setState()", true, false);
         Option o4 = new Option(new ObjectId(), "putState()", false, false);
         options1.add(o1);
@@ -33,7 +38,7 @@ public class MockQuizList {
                 QuestionType.ONE_CHOICE, options1);
 
         Set<Option> options2 = new HashSet<>();
-        Option o21 =  new Option(new ObjectId(), "Yes", true,false);
+        Option o21 =  new Option(new ObjectId(), "Yes", true,true);
         Option o22 = new Option(new ObjectId(), "No", false,false);
         Option o23 =  new Option(new ObjectId(), "Maybe", false, false);
         options2.add(o21);
@@ -47,7 +52,7 @@ public class MockQuizList {
         Set<Option> options3 = new HashSet<>();
         Option o31 =   new Option(new ObjectId(),
                 "Yes, if you pass the ref value for the child component to props and get to the element through a chain of refs",
-                true,false);
+                true,true);
         Option o32 =  new Option(new ObjectId(),
                 "No, it is not possible to access the elements of the child component, since this is contrary to the philosophy of React.js",
                 false, false);
@@ -61,9 +66,9 @@ public class MockQuizList {
                 QuestionType.ONE_CHOICE, options3);
 
         Set<Option> options4 = new HashSet<>();
-        Option o41 = new Option(new ObjectId(), "Yes", false,false);
+        Option o41 = new Option(new ObjectId(), "Yes", false,true);
         Option o42 = new Option(new ObjectId(), "No", true,false);
-        Option o43 = new Option(new ObjectId(), "Sometimes", false,false);
+        Option o43 = new Option(new ObjectId(), "Sometimes", false,true);
         options4.add(o41);
         options4.add(o42);
         options4.add(o43);
@@ -73,7 +78,7 @@ public class MockQuizList {
 
         Set<Option> options5 = new HashSet<>();
         Option o51 = new Option(new ObjectId(), "Shadow DOM", false, false);
-        Option o52 = new Option(new ObjectId(), "Native DOM", false, false);
+        Option o52 = new Option(new ObjectId(), "Native DOM", false, true);
         Option o53 = new Option(new ObjectId(), "Virtual DOM", true ,false);
 
         options5.add(o51);
@@ -94,5 +99,34 @@ public class MockQuizList {
                 QuizMode.ONE_WAY_DIRECTION, QUESTIONS);
 
         MOCK_QUIZ_LIST.add(QUIZ);
+
+        Result r1 = Result.builder()
+                .resultId(new ObjectId())
+                .statistics(0.3)
+                .accountId(MockAccountList.ACCOUNTS.get(0).getAccountId())
+                .cursor(2)
+                .quizId(QUIZ.getQuizId())
+                .name(QUIZ.getName())
+                .shortDescription(QUIZ.getShortDescription())
+                .longDescription(QUIZ.getLongDescription())
+                .quizMode(QUIZ.getQuizMode())
+                .questions(QUIZ.getQuestions())
+                .build();
+
+        Result r2 = Result.builder()
+                .resultId(new ObjectId())
+                .statistics(0.4)
+                .accountId(MockAccountList.ACCOUNTS.get(1).getAccountId())
+                .cursor(2)
+                .quizId(QUIZ.getQuizId())
+                .name(QUIZ.getName())
+                .shortDescription(QUIZ.getShortDescription())
+                .longDescription(QUIZ.getLongDescription())
+                .quizMode(QUIZ.getQuizMode())
+                .questions(QUIZ.getQuestions())
+                .build();
+
+        MOCK_RESULT.add(r1);
+        MOCK_RESULT.add(r2);
     }
 }
