@@ -11,7 +11,7 @@ import {
 } from "../action";
 
 const initialState = {
-    email: 'user@gmail.com',
+    email: null,
 
     quizNamesArr:[],
 
