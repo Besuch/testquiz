@@ -201,11 +201,11 @@
   </dependencies>
   <properties>
     <java.version>1.8</java.version>
-    <node.version>v12.13.1</node.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <frontend-src-dir>${project.basedir}/src/main/ui</frontend-src-dir>
-    <yarn.version>v1.21.0</yarn.version>
+    <node.version>v12.13.1</node.version>
     <frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
     <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+    <yarn.version>v1.21.0</yarn.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>
