@@ -1,3 +1,4 @@
+export const SET_EMAIL = 'SET_EMAIL';
 export const GET_QUIZ_LIST_SUCCESS = 'GET_QUIZ_LIST_SUCCESS';
 export const GET_QUIZ_NAMES_LIST = 'GET_QUIZ_NAMES_LIST';
 export const GET_QUIZ_NAMES_LIST_SUCCESS = 'GET_QUIZ_NAMES_LIST_SUCCESS';
@@ -13,6 +14,12 @@ export const SET_CUR_QUIZ_TO_NONE = 'SET_CUR_QUIZ_TO_NONE';
 export function getAllQuizesNames() {
     return {
         type: GET_QUIZ_NAMES_LIST,
+    }
+}
+
+export function setEmail(payload) {
+    return {
+        type: SET_EMAIL, payload
     }
 }
 

@@ -8,5 +8,5 @@ import lombok.Data;
 public class OptionDto {
 	String optionId;
 	String text;
-	Boolean isChecked;
+	boolean isChecked;
 }

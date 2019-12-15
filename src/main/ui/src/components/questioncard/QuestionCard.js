@@ -35,9 +35,9 @@ export default function QuestionCard(props) {
 
     const {store} = props;
     let quiz = store.currentQuiz;
-    let arrayQuestionsLength = quiz.questions.length;
+    let arrayQuestionsLength = quiz.questionDtos.length;
     let count = store.count;
-    let question = quiz.questions[count];
+    let question = quiz.questionDtos[count];
     const classes = useStyles();
     let quizMode = quiz.quizMode;
     const [value, setValue] = React.useState(null);
@@ -47,8 +47,8 @@ export default function QuestionCard(props) {
         disableBtn = false;
     }else {
         disableBtn = true;
-        for (let i = 0; i < question.options.length; i++) {
-            if (question.options[i].isChecked) disableBtn = false;
+        for (let i = 0; i < question.optionDtos.length; i++) {
+            if (question.optionDtos[i].isChecked) disableBtn = false;
         }
     }
 

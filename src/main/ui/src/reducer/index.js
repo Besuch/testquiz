@@ -1,4 +1,5 @@
 import {
+    SET_EMAIL,
     GET_CHOSEN_QUIZ_SUCCESS,
     GET_QUIZ_LIST_SUCCESS,
     GET_QUIZ_NAMES_LIST_SUCCESS,
@@ -10,6 +11,7 @@ import {
 } from "../action";
 
 const initialState = {
+    email: null,
 
     quizNamesArr:[],
 
@@ -58,6 +60,9 @@ export default (state = initialState, action) => {
 
 
     switch (action.type) {
+        case SET_EMAIL:
+            return {... state, email: action.payload}
+
         case GET_QUIZ_LIST_SUCCESS:
             return {...state, quizArr: action.payload};
 

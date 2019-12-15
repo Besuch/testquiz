@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
 
 
 const useStyles = makeStyles(theme => ({
@@ -13,14 +16,15 @@ const useStyles = makeStyles(theme => ({
 
 export default function RadioButtonsGroup(props) {
     const classes = useStyles();
-    const {question: {options}, setValue} = props;
+    const {question: {optionDtos}, setValue} = props;
 
     const handleChange = event => {
+        console.log('event.target.value =', event.target.value);
         const optionId = event.target.value;
         setValue(optionId);
-        for (let i = 0; i < options.length ; i++) {
-            if(options[i].optionId === optionId){
-                options[i].isChecked = true;
+        for (let i = 0; i < optionDtos.length ; i++) {
+            if(optionDtos[i].optionId === optionId){
+                optionDtos[i].isChecked = true;
             }
         }
     };
@@ -30,23 +34,24 @@ export default function RadioButtonsGroup(props) {
         <div>
             <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Make your choice !</FormLabel>
-                {/*<RadioGroup aria-label="" name="options" value={getValue()} onChange={handleChange}>*/}
-                    {/*{options.length && options.map(item => (*/}
-                        {/*<FormControlLabel*/}
-                        {/*key= {item.optionId}*/}
-                        {/*value={item.optionId}*/}
-                        {/*control={<Radio color="default" />}*/}
-                        {/*label={item.text}*/}
-                        {/*labelPlacement="end"*/}
-                    {/*/>*/}
-                    {/*))}*/}
-                {/*</RadioGroup>*/}
-                <form>
-                {options.length && options.map(item => (
-                <p><input onClick={handleChange} checked={item.isChecked} key= {item.optionId}
+                {/* <RadioGroup aria-label="" name="optionDtos" value={getValue()} onChange={handleChange}> */}
+                <RadioGroup aria-label="" name="optionDtos" onChange={handleChange}>
+                    {optionDtos.length && optionDtos.map(item => (
+                        <FormControlLabel
+                        key= {item.optionId}
+                        value={item.optionId}
+                        control={<Radio color="default" />}
+                        label={item.text}
+                        labelPlacement="end"
+                    />
+                    ))}
+                </RadioGroup>
+                {/* <form>
+                {optionDtos.length && optionDtos.map(item => (
+                <p key={item.optionId}><input onClick={handleChange} checked={item.isChecked}
                           name="123" type="radio" value={item.optionId}/> {item.text}</p>
                 ))}
-                </form>
+                </form> */}
                 <FormHelperText>Please choose one !</FormHelperText>
             </FormControl>
         </div>

@@ -30,14 +30,17 @@ const useStyles = makeStyles({
 
 export default function QuizCard(props) {
 
-    const {quizNameArr} = props;
+    const {store} = props;
+    const quizNamesArr = store.quizNamesArr;
+    const email = store.email;
 
     const dispatch = useDispatch();
     const classes = useStyles();
 
     return (
+
         <>
-            {quizNameArr.length && quizNameArr.map(item => (
+            {quizNamesArr.length && quizNamesArr.map(item => (
                 <Card className={classes.card} key={item.quizId}>
                     <CardContent>
                         <Typography className={classes.pos} color="textSecondary">
@@ -51,7 +54,7 @@ export default function QuizCard(props) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                            <Button onClick={() => dispatch(getChosenQuiz(item.id))} size="small">Learn More</Button>
+                            <Button onClick={() => dispatch(getChosenQuiz({quizId: item.quizId, email}))} size="small">Learn More</Button>
                     </CardActions>
                 </Card>
             ))}

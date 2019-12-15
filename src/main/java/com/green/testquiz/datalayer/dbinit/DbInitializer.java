@@ -1,4 +1,4 @@
-package com.green.testquiz.datalayer.initDb;
+package com.green.testquiz.datalayer.dbinit;
 
 import com.green.testquiz.datalayer.mocks.MockAccountList;
 import com.green.testquiz.datalayer.mocks.MockQuizList;
@@ -7,8 +7,6 @@ import com.green.testquiz.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public class DbInitializer implements CommandLineRunner {
