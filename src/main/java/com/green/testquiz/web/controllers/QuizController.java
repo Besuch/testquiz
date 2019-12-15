@@ -46,16 +46,16 @@ public class QuizController {
     }
 
     @PostMapping("/api/progress/quizzes/{quizId}/questions/{questionId}/answers)")
-    public ResponseEntity<?> saveAnswer(@PathVariable String quizId, @PathVariable String questionId,
+    public ResponseEntity saveAnswer(@PathVariable String quizId, @PathVariable String questionId,
                                         @RequestParam String email, @RequestBody List<String> optionIdList) {
         resultService.save(email, quizId, questionId, optionIdList);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/api/result/{quizId}/questions/{questionId}/answers)")
-    public ResponseEntity<?> finishQuiz(@PathVariable String quizId, @PathVariable String questionId,
+    public ResponseEntity<Double> finishQuiz(@PathVariable String quizId, @PathVariable String questionId,
                                         @RequestParam String email, @RequestBody List<String> optionIdList) {
-        resultService.finishQuiz(email, quizId, questionId, optionIdList);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Result result = resultService.finishQuiz(email, quizId, questionId, optionIdList);
+        return new ResponseEntity<>(result.getStatistics(), HttpStatus.OK);
     }
 }
