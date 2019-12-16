@@ -5,6 +5,7 @@ import com.green.testquiz.datalayer.entities.Option;
 import com.green.testquiz.datalayer.entities.Question;
 import com.green.testquiz.datalayer.entities.Quiz;
 import com.green.testquiz.datalayer.entities.Result;
+import com.green.testquiz.datalayer.mocks.MockQuizList;
 import com.green.testquiz.enums.QuizMode;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ResultServiceImpl implements ResultService {
@@ -97,5 +99,10 @@ public class ResultServiceImpl implements ResultService {
         Double percents = score / result.getQuestions().size() * 100;
         result.setStatistics(percents);
         return resultRepository.save(result);
+    }
+
+    @Override
+    public Set<Result> findAll() {
+        return MockQuizList.MOCK_RESULT;
     }
 }
