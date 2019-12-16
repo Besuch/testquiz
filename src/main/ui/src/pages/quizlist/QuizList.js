@@ -16,7 +16,7 @@ export const QuizList = ({ match }) => {
 
     useEffect(() => { //called the first time when component was loaded
         dispatch(getAllQuizesNames());
-//        dispatch(setEmail(match.params.email));
+        dispatch(setEmail(match.params.email));
     },[]);
 
     return (
