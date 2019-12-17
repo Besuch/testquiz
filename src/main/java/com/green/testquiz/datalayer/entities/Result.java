@@ -19,6 +19,7 @@ public class Result {
     private ObjectId resultId;
     private Double statistics;
     private ObjectId accountId;
+    private String accountEmail;
     private Integer cursor;
     private ObjectId quizId;
     private String name;

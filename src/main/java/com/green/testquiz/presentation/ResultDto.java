@@ -11,6 +11,7 @@ public class ResultDto {
     private String resultId;
     private Double statistics;
     private String accountId;
+    private String accountEmail;
     private Integer cursor;
     private String quizId;
     private String name;
