@@ -26,7 +26,7 @@ function App() {
               <Switch>
                 <Route exact path="/" component={SignIn}/>
                 <Route exact path="/signup" component={SignUp}/>
-                <ProtectedRout exact path="/quiz/:email" component={QuizList}/>
+                <ProtectedRout exact path="/quiz/" component={QuizList}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Router>
