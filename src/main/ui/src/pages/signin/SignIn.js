@@ -53,7 +53,7 @@ function handleClick (props) {
     let password = paswordInput.current.value;
     auth.login(email, password);
     if (auth.isAuthenticated()) {
-    props.history.push('/quiz/' + email) }
+    props.history.push('/quiz/?email=' + email) }
     else {
         props.history.push('/')
     }
