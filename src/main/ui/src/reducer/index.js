@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
 
     switch (action.type) {
         case SET_EMAIL:
-            return {... state, email: action.payload}
+            return {...state, email: action.payload}
 
         case GET_QUIZ_LIST_SUCCESS:
             return {...state, quizArr: action.payload};
