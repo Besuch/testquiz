@@ -57,13 +57,15 @@ export default function QuestionCard(props) {
 
     let button;
     if(count === arrayQuestionsLength - 1){
-        button = <Button disabled={disableBtn} onClick={ () => {
+        button = <Button variant="contained" color="default"
+            disabled={disableBtn} onClick={ () => {
             dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], true, email)));
             dispatch(resetCardPageInfo("ResultCard"));
             dispatch(setCurQuizToNone());
         }} size="small" >Submit</Button>;
     } else {
-        button = <Button disabled={disableBtn} onClick={ () => {
+        button = <Button variant="contained" color="default"
+            disabled={disableBtn} onClick={ () => {
             dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
             dispatch(showNextQuestion({id: question.questionId, value: value}));
         }} size="small" >Next</Button>;
@@ -71,7 +73,7 @@ export default function QuestionCard(props) {
 
     let returnButton;
     if(count !== 0){
-        returnButton =  <Button onClick={ () =>{
+        returnButton =  <Button variant="contained" color="default" onClick={ () =>{
             dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
             dispatch(showPrevQuestion({id: question.questionId, value: value}))} } size="small" >Previous</Button>;
     }

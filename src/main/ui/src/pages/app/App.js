@@ -7,6 +7,9 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import createSagaMiddleware from "redux-saga";
 import reducer from '../../reducer';
 import {watchQuizSaga} from '../../saga'
+import SignIn from '../signin/SignIn'
+import SignUp from '../signup/SignUp'
+import {ProtectedRout} from "../../common/ProtectedRout";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -21,8 +24,9 @@ function App() {
         <React.Fragment>
             <Router>
               <Switch>
-                <Route exact path="/" component={QuizList}/>
-                {/*<Route exact path="/quizQuestions" component={}/>*/}
+                <Route exact path="/" component={SignIn}/>
+                <Route exact path="/signup" component={SignUp}/>
+                <ProtectedRout exact path="/quiz/:email" component={QuizList}/>
                 <Route component={NoMatch}/>
               </Switch>
             </Router>

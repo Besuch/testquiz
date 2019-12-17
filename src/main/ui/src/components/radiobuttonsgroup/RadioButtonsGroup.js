@@ -34,7 +34,6 @@ export default function RadioButtonsGroup(props) {
         <div>
             <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Make your choice !</FormLabel>
-                {/* <RadioGroup aria-label="" name="optionDtos" value={getValue()} onChange={handleChange}> */}
                 <RadioGroup aria-label="" name="optionDtos" onChange={handleChange}>
                     {optionDtos.length && optionDtos.map(item => (
                         <FormControlLabel
@@ -46,12 +45,6 @@ export default function RadioButtonsGroup(props) {
                     />
                     ))}
                 </RadioGroup>
-                {/* <form>
-                {optionDtos.length && optionDtos.map(item => (
-                <p key={item.optionId}><input onClick={handleChange} checked={item.isChecked}
-                          name="123" type="radio" value={item.optionId}/> {item.text}</p>
-                ))}
-                </form> */}
                 <FormHelperText>Please choose one !</FormHelperText>
             </FormControl>
         </div>
