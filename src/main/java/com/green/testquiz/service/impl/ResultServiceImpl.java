@@ -48,6 +48,7 @@ public class ResultServiceImpl implements ResultService {
                     new ObjectId(),
                     null,
                     account.getAccountId(),
+                    account.getEmail(),
                     quiz.getQuizMode() == QuizMode.ONE_WAY_DIRECTION ? 0 : null,
                     quiz.getQuizId(),
                     quiz.getName(),
