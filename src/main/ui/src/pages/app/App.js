@@ -10,7 +10,6 @@ import {watchQuizSaga} from '../../saga'
 import SignIn from '../signin/SignIn'
 import SignUp from '../signup/SignUp'
 import {ProtectedRout} from "../../common/ProtectedRout";
-//import LandingPage from '../landingpage/LandingPage'
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,9 +26,7 @@ function App() {
               <Switch>
                 <Route exact path="/" component={SignIn}/>
                 <Route exact path="/signup" component={SignUp}/>
-                {/*<Route exact path="/" component={LandingPage}/>*/}
                 <ProtectedRout exact path="/quiz/:email" component={QuizList}/>
-                {/*<Route exact path="/quizQuestions" component={}/>*/}
                 <Route component={NoMatch}/>
               </Switch>
             </Router>
