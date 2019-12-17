@@ -74,13 +74,13 @@ export default (state = initialState, action) => {
 
         case SHOW_NEXT_QUESTION:
 
-            return{...state, count: ++initialState.count, currentQuiz: {
+            return{...state, count: ++state.count, currentQuiz: {
                 ...state.currentQuiz,
                     questions: stateManipulations(state, action)
                 }};
 
         case SHOW_PREV_BUTTON:
-            return{...state, count: --initialState.count, currentQuiz: {
+            return{...state, count: --state.count, currentQuiz: {
                     ...state.currentQuiz,
                     questions: stateManipulations(state, action)
                 }};

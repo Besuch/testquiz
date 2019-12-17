@@ -48,7 +48,7 @@ export default function RadioButtonsGroup(props) {
                 </RadioGroup>
                 {/* <form>
                 {optionDtos.length && optionDtos.map(item => (
-                <p key={item.optionId}><input onClick={handleChange} checked={item.isChecked}
+                <p key={item.optionId}><input onClick={handleChange} checked={item.checked}
                           name="123" type="radio" value={item.optionId}/> {item.text}</p>
                 ))}
                 </form> */}
