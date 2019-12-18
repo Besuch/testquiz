@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import {showNextQuestion, resetCardPageInfo, showPrevQuestion,
     sendReportToBackEnd, setCurQuizToNone} from '../../action';
 import RadioButtonsGroup from '../radiobuttonsgroup/RadioButtonsGroup';
+import CheckboxesGroup from '../checkboxesgroup/CheckboxesGroup';
 import {useDispatch} from "react-redux";
 import {Report} from '../model/Report';
 
@@ -42,7 +43,15 @@ export default function QuestionCard(props) {
     let question = quiz.questionDtos[count];
     const classes = useStyles();
     let quizMode = quiz.quizMode;
-    const [value, setValue] = React.useState(null);
+    const [items, setItems] = React.useState([]);
+
+    const addItem = (optionId) => {
+      setItems([
+        ...items, optionId
+      ]);
+    };
+
+
     let disableBtn;
 
     if(quizMode === "MULTI_WAY_DIRECTION") {
@@ -59,29 +68,28 @@ export default function QuestionCard(props) {
     if(count === arrayQuestionsLength - 1){
         button = <Button variant="contained" color="default"
             disabled={disableBtn} onClick={ () => {
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], true, email)));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, items, true, email)));
             dispatch(resetCardPageInfo("ResultCard"));
             dispatch(setCurQuizToNone());
         }} size="small" >Submit</Button>;
     } else {
         button = <Button variant="contained" color="default"
             disabled={disableBtn} onClick={ () => {
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
-            dispatch(showNextQuestion({id: question.questionId, value: value}));
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, items, false, email)));
+            dispatch(showNextQuestion({id: question.questionId, items: items}));
         }} size="small" >Next</Button>;
     }
 
     let returnButton;
     if(count !== 0){
         returnButton =  <Button variant="contained" color="default" onClick={ () =>{
-            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, [value], false, email)));
-            dispatch(showPrevQuestion({id: question.questionId, value: value}))} } size="small" >Previous</Button>;
+            dispatch(sendReportToBackEnd(new Report(quiz.quizId, question.questionId, items, false, email)));
+            dispatch(showPrevQuestion({id: question.questionId, items: items}))} } size="small" >Previous</Button>;
     }
 
-
-
-
-    let optiondisplay  = <RadioButtonsGroup question = {question} setValue = {setValue}/>;
+    let optiondisplay = question.questionType === 'ONE_CHOICE' 
+    ? <RadioButtonsGroup question = {question} addItem = {addItem}/>
+    : <CheckboxesGroup question = {question} addItem = {addItem}/>;
 
     // if(question.questionType === "MULTIPLE_CHOICE"){
     //     optiondisplay = <CheckboxesGroup question = {question} />
