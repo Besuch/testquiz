@@ -23,7 +23,7 @@ public class MockQuizList {
     static {
         Set<Option> options1 = new HashSet<>();
         Option o1 = new Option(new ObjectId(), "updateState()", false , false);
-        Option o2 = new Option(new ObjectId(), "changeState()", false, true);
+        Option o2 = new Option(new ObjectId(), "changeState()", false, false);
         Option o3 = new Option(new ObjectId(), "setState()", true, false);
         Option o4 = new Option(new ObjectId(), "putState()", false, false);
         options1.add(o1);
@@ -35,7 +35,7 @@ public class MockQuizList {
                 QuestionType.ONE_CHOICE, options1);
 
         Set<Option> options2 = new HashSet<>();
-        Option o21 =  new Option(new ObjectId(), "Yes", true,true);
+        Option o21 =  new Option(new ObjectId(), "Yes", true,false);
         Option o22 = new Option(new ObjectId(), "No", false,false);
         Option o23 =  new Option(new ObjectId(), "Maybe", false, false);
         options2.add(o21);
@@ -50,7 +50,7 @@ public class MockQuizList {
         Set<Option> options3 = new HashSet<>();
         Option o31 =   new Option(new ObjectId(),
                 "Yes, if you pass the ref value for the child component to props and get to the element through a chain of refs",
-                true,true);
+                true,false);
         Option o32 =  new Option(new ObjectId(),
                 "No, it is not possible to access the elements of the child component, since this is contrary to the philosophy of React.js",
                 false, false);
@@ -65,9 +65,9 @@ public class MockQuizList {
                 QuestionType.ONE_CHOICE, options3);
 
         Set<Option> options4 = new HashSet<>();
-        Option o41 = new Option(new ObjectId(), "Yes", false,true);
+        Option o41 = new Option(new ObjectId(), "Yes", false,false);
         Option o42 = new Option(new ObjectId(), "No", true,false);
-        Option o43 = new Option(new ObjectId(), "Sometimes", false,true);
+        Option o43 = new Option(new ObjectId(), "Sometimes", false,false);
         options4.add(o41);
         options4.add(o42);
         options4.add(o43);
@@ -78,7 +78,7 @@ public class MockQuizList {
 
         Set<Option> options5 = new HashSet<>();
         Option o51 = new Option(new ObjectId(), "Shadow DOM", false, false);
-        Option o52 = new Option(new ObjectId(), "Native DOM", false, true);
+        Option o52 = new Option(new ObjectId(), "Native DOM", false, false);
         Option o53 = new Option(new ObjectId(), "Virtual DOM", true ,false);
 
         options5.add(o51);
@@ -89,11 +89,27 @@ public class MockQuizList {
                 "What DOM does React.js ?",
                 QuestionType.ONE_CHOICE, options5);
 
+        Set<Option> options6 = new HashSet<>();
+        Option o61 = new Option(new ObjectId(), "render", true, false);
+        Option o62 = new Option(new ObjectId(), "componentDidMount", true, false);
+        Option o63 = new Option(new ObjectId(), "componentMustUpdate", false,false);
+        Option o64 = new Option(new ObjectId(), "componentWillUnmount", true,false);
+
+        options6.add(o61);
+        options6.add(o62);
+        options6.add(o63);
+        options6.add(o64);
+        Question q6 = new Question( new ObjectId(),
+                "Please choose existing lifecycle methods",
+                "The Component lifecycle",
+                QuestionType.MULTIPLE_CHOICE, options6);
+
         QUESTIONS.add(q1);
         QUESTIONS.add(q2);
         QUESTIONS.add(q3);
         QUESTIONS.add(q4);
         QUESTIONS.add(q5);
+        QUESTIONS.add(q6);
 
         QUIZ = new Quiz(new ObjectId(),"React.js quiz",
                 "Test your knowledge of React.js", "",

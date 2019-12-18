@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const useStyles = makeStyles(theme => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function RadioButtonsGroup(props) {
+export default function CheckboxesGroup(props) {
     const classes = useStyles();
     const {question: {optionDtos}, addItem} = props;
 
@@ -34,18 +34,19 @@ export default function RadioButtonsGroup(props) {
         <div>
             <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">Make your choice !</FormLabel>
-                <RadioGroup aria-label="" name="optionDtos" onChange={handleChange}>
+                <FormGroup aria-label="" name="optionDtos">
                     {optionDtos.length && optionDtos.map(item => (
                         <FormControlLabel
                         key= {item.optionId}
                         value={item.optionId}
-                        control={<Radio color="default" />}
+                        control={<Checkbox color="default" />}
                         label={item.text}
                         labelPlacement="end"
+                        onChange={handleChange}
                     />
                     ))}
-                </RadioGroup>
-                <FormHelperText>Please choose one !</FormHelperText>
+                </FormGroup>
+                <FormHelperText>You can choose several</FormHelperText>
             </FormControl>
         </div>
     );

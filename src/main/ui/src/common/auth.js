@@ -33,4 +33,4 @@ class Auth {
         this.lastName = lastName;
     }
 }
-export default new Auth;
+export default new Auth();
