@@ -2,6 +2,7 @@ package com.green.testquiz.web.controllers;
 
 import com.green.testquiz.converter.QuizConverter;
 import com.green.testquiz.converter.ResultConverter;
+import com.green.testquiz.datalayer.entities.Quiz;
 import com.green.testquiz.datalayer.entities.Result;
 import com.green.testquiz.presentation.QuizDto;
 import com.green.testquiz.presentation.ResultDto;
@@ -10,7 +11,13 @@ import com.green.testquiz.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Set;
@@ -64,5 +71,11 @@ public class QuizController {
         return resultService.findAll().stream()
                 .map(resultConverter::toDto)
                 .collect(Collectors.toSet());
+    }
+
+    @PostMapping("/api/quizes")
+    public QuizDto createQuiz(@RequestBody QuizDto quizDto) {
+        Quiz quiz = quizService.create(quizConverter.fromDto(quizDto));
+        return quizConverter.toDto(quiz);
     }
 }

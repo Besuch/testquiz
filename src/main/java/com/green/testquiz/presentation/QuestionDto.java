@@ -9,8 +9,9 @@ import java.util.Set;
 @Data
 @Builder
 public class QuestionDto {
-	String questionId;
-	String text;
-	QuestionType questionType;
-	Set<OptionDto> optionDtos;
+	private String questionId;
+	private String text;
+	private String description;
+	private QuestionType questionType;
+	private Set<OptionDto> optionDtos;
 }
