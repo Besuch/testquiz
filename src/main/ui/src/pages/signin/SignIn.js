@@ -71,7 +71,6 @@ export default function SignIn(props) {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                {/*<form className={classes.form} noValidate>*/}
                     <TextField
                         inputRef={emailInput}
                         variant="outlined"
@@ -124,7 +123,14 @@ export default function SignIn(props) {
                             </Link>
                         </Grid>
                     </Grid>
-                {/*</form>*/}
+                <br/>
+                <Grid container>
+                    <Grid item>
+                        <Link href="/admin" variant="body2">
+                            {"To Sign in as Admin, Click here"}
+                        </Link>
+                    </Grid>
+                </Grid>
             </div>
             <Box mt={8}>
                 <Copyright />
