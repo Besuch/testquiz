@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './AdminResult.css';
 import Button from '@material-ui/core/Button';
 import AdminAuth from '../../common/adminAuth';
-
+import { getResultsUrl } from '../../configs';
 
 
 class AdminResult extends Component {
@@ -14,7 +14,7 @@ class AdminResult extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/api/results')
+        fetch(getResultsUrl())
             .then(response => response.json())
             // .then(data => console.log(data));
             .then(data => this.setState({ results: data }));

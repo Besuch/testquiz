@@ -8,7 +8,7 @@ import {
     SEND_REPORT_TO_BACKEND,
     sendReportToBackEndResult,
 } from "../action";
-import { getQuizzesUrl, getQuizByIdUrl, postProgressUrl, postResultUrl } from '../configs'
+import { getQuizzesUrl, getQuizByIdUrl, postProgressUrl, postResultUrl } from '../configs';
 
 export function* watchQuizSaga() {
     yield takeEvery(GET_QUIZ_NAMES_LIST, getQuizNamesListRequest);
