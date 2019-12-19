@@ -3,8 +3,6 @@ class AdminAuth {
         this.authenticated = false;
         this.email = 'admin@admin.com';
         this.password = 'admin';
-        this.name = null;
-        this.lastName = null;
     }
 
     login(email, password){
