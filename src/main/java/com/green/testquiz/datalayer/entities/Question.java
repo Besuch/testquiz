@@ -18,7 +18,6 @@ public class Question {
     @Id
     private ObjectId questionId;
     private String text;
-    private String description;
     private QuestionType questionType;
     private Set<Option> options;
 }

@@ -54,7 +54,6 @@ public class ResultConverterTest {
 		Question question1 = Question.builder()
 				.questionId(objectId)
 				.text("question1")
-				.description("description for question1")
 				.questionType(QuestionType.ONE_CHOICE)
 				.options(options)
 				.build();
@@ -62,7 +61,6 @@ public class ResultConverterTest {
 		Question question2 = Question.builder()
 				.questionId(objectId)
 				.text("question2")
-				.description("description for question2")
 				.questionType(QuestionType.ONE_CHOICE)
 				.options(options)
 				.build();
@@ -70,7 +68,6 @@ public class ResultConverterTest {
 		Question question3 = Question.builder()
 				.questionId(objectId)
 				.text("question3")
-				.description("description for question3")
 				.questionType(QuestionType.MULTIPLE_CHOICE)
 				.options(options)
 				.build();

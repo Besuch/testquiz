@@ -59,7 +59,7 @@ public class QuestionConverterTest {
         optionDtos.add(optionDto2);
         optionDtos.add(optionDto3);
 
-        Question question = new Question(objectId, "Question", "description", QuestionType.ONE_CHOICE, options);
+        Question question = new Question(objectId, "Question", QuestionType.ONE_CHOICE, options);
         QuestionDto expected = QuestionDto.builder()
                 .questionId(objectId.toHexString())
                 .questionType(QuestionType.ONE_CHOICE)

@@ -11,7 +11,6 @@ import java.util.Set;
 public class QuestionDto {
 	private String questionId;
 	private String text;
-	private String description;
 	private QuestionType questionType;
 	private Set<OptionDto> optionDtos;
 }
