@@ -15,13 +15,12 @@ public class OptionConverter {
     }
 
     public Option fromDto(OptionDto optionDto) {
+        ObjectId optId = optionDto.getOptionId() != null ? new ObjectId(optionDto.getOptionId()) : new ObjectId();
         Option option = Option.builder()
                 .text(optionDto.getText())
                 .isChecked(optionDto.isChecked())
+                .optionId(optId)
                 .build();
-        if (optionDto.getOptionId() != null) {
-            option.setOptionId(new ObjectId(optionDto.getOptionId()));
-        }
         return option;
     }
 }
