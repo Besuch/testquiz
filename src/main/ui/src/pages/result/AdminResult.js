@@ -44,7 +44,7 @@ class AdminResult extends Component {
                             <tr>
                                 <td>{item.accountEmail}</td>
                                 <td>{item.name}</td>
-                                <td>{item.statistics * 100}%</td>
+                                <td>{item.statistics}%</td>
                             </tr>
                         ))}
                     </table>
