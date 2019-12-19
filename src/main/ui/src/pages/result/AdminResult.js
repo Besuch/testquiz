@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './AdminResult.css';
+import Button from '@material-ui/core/Button';
+import AdminAuth from '../../common/adminAuth';
+
+
 
 class AdminResult extends Component {
     constructor(props) {
@@ -23,7 +27,12 @@ class AdminResult extends Component {
         return (
 
             <div className="App">
-                <header className="App-header">
+                <header className="App-header"><div className="btnDiv">
+                    <Button  variant="contained" size="large"  onClick={() => {
+                        AdminAuth.logout();
+                        this.props.history.push('/')
+                    }} > Logout </Button>
+                </div>
                     <table border="1">
                         <tr>
                             <th>Account email</th>

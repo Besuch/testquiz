@@ -8,9 +8,12 @@ import createSagaMiddleware from "redux-saga";
 import reducer from '../../reducer';
 import {watchQuizSaga} from '../../saga'
 import SignIn from '../signin/SignIn'
+//import AdminResult from '../result/AdminResult'
 import AdminResult from '../result/AdminResult'
 import SignUp from '../signup/SignUp'
+import AdminSignIn from '../adminsignin/AdminSignIn';
 import {ProtectedRout} from "../../common/ProtectedRout";
+import {ProtectedAdminRout} from "../../common/ProtectedAdminRout";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,7 +30,8 @@ function App() {
               <Switch>
                 <Route exact path="/" component={SignIn}/>
                 <Route exact path="/signup" component={SignUp}/>
-                <Route exact path="/results" component={AdminResult}/>
+                <ProtectedAdminRout exact path="/results" component={AdminResult}/>
+                <Route exact path="/admin" component={AdminSignIn}/>
                 <ProtectedRout exact path="/quiz/" component={QuizList}/>
                 <Route component={NoMatch}/>
               </Switch>

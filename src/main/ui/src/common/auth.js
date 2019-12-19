@@ -9,7 +9,6 @@ class Auth {
 
     login(email, password){
 
-        alert(this.email + " " + this.password);
         if(email === this.email && password === this.password) {
             this.authenticated = true;
         } else {
