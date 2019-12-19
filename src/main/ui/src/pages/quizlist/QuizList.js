@@ -25,7 +25,7 @@ export const QuizList = (props) => {
     return (
         <>
             <div className="btnDiv">
-                <Button  variant="contained" size="large"  onClick={() => {
+                <Button  variant="contained" size="medium"  onClick={() => {
                     auth.logout();
                     props.history.push('/')
                 }} > Logout </Button>
