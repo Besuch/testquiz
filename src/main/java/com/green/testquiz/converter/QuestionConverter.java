@@ -26,7 +26,7 @@ public class QuestionConverter {
 
     public Question fromDto(QuestionDto questionDto) {
         Question question =  Question.builder()
-                .description(questionDto.getDescription())
+                .text(questionDto.getText())
                 .questionType(questionDto.getQuestionType())
                 .options(questionDto.getOptionDtos().stream()
                     .map(optionConverter::fromDto)

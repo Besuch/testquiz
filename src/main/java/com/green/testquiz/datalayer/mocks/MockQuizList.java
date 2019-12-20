@@ -30,7 +30,7 @@ public class MockQuizList {
         options1.add(o2);
         options1.add(o3);
         options1.add(o4);
-        Question q1 = new Question(new ObjectId(), "Method to change state",
+        Question q1 = new Question(new ObjectId(),
                 "Which method call causes a component to change state?",
                 QuestionType.ONE_CHOICE, options1);
 
@@ -43,7 +43,6 @@ public class MockQuizList {
         options2.add(o23);
         Question q2 = new Question( new ObjectId(),
                 "Does Stateless Functional Components in React.js invoke life cycle methods?",
-                "Stateless Functional Components",
                 QuestionType.ONE_CHOICE, options2);
 
 
@@ -61,7 +60,6 @@ public class MockQuizList {
         options3.add(o33);
         Question q3 = new Question( new ObjectId(),
                 "Is it possible to access the value of the element of the child component through the ref of this element?",
-                "Child component access",
                 QuestionType.ONE_CHOICE, options3);
 
         Set<Option> options4 = new HashSet<>();
@@ -73,7 +71,6 @@ public class MockQuizList {
         options4.add(o43);
         Question q4 = new Question( new ObjectId(),
                 "Is using the setState () method acceptable in componentDidMount()?",
-                "Using the setState()",
                 QuestionType.ONE_CHOICE, options4);
 
         Set<Option> options5 = new HashSet<>();
@@ -86,7 +83,6 @@ public class MockQuizList {
         options5.add(o53);
         Question q5 = new Question( new ObjectId(),
                 "What DOM does React.js interact with?",
-                "What DOM does React.js ?",
                 QuestionType.ONE_CHOICE, options5);
 
         Set<Option> options6 = new HashSet<>();
@@ -101,7 +97,6 @@ public class MockQuizList {
         options6.add(o64);
         Question q6 = new Question( new ObjectId(),
                 "Please choose existing lifecycle methods",
-                "The Component lifecycle",
                 QuestionType.MULTIPLE_CHOICE, options6);
 
         QUESTIONS.add(q1);
