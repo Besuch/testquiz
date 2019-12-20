@@ -7,6 +7,8 @@ docker run -d -p 27017-27019:27017-27019 mongo
 3) go to http://localhost:8080 in browser
 4) to open swagger - visit: 
 http://localhost:8080/swagger-ui.html/
+5) To check the results go to http://localhost:8080/results
+
 
 To start only react app:
 1) cd src/main/ui

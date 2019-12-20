@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
 
     switch (action.type) {
         case SET_EMAIL:
-            return {... state, email: action.payload}
+            return {...state, email: action.payload}
 
         case GET_QUIZ_LIST_SUCCESS:
             return {...state, quizArr: action.payload};
@@ -67,20 +67,20 @@ export default (state = initialState, action) => {
             return {...state, quizNamesArr: action.payload};
 
         case GET_CHOSEN_QUIZ_SUCCESS:
-            return{...state, currentQuiz: action.payload};
+            return { ...state, currentQuiz: action.payload, statistics: null };
 
         case RESET_CARD_PAGE_INFO:
             return{...state, cardState: action.payload };
 
         case SHOW_NEXT_QUESTION:
 
-            return{...state, count: ++initialState.count, currentQuiz: {
+            return{...state, count: ++state.count, currentQuiz: {
                 ...state.currentQuiz,
                     questions: stateManipulations(state, action)
                 }};
 
         case SHOW_PREV_BUTTON:
-            return{...state, count: --initialState.count, currentQuiz: {
+            return{...state, count: --state.count, currentQuiz: {
                     ...state.currentQuiz,
                     questions: stateManipulations(state, action)
                 }};

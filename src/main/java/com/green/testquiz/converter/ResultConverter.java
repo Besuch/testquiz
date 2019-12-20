@@ -23,6 +23,7 @@ public class ResultConverter {
                 .resultId(result.getResultId().toHexString())
                 .statistics(result.getStatistics())
                 .accountId(result.getAccountId().toHexString())
+                .accountEmail(result.getAccountEmail())
                 .quizId(result.getQuizId().toHexString())
                 .name(result.getName())
                 .shortDescription(result.getShortDescription())

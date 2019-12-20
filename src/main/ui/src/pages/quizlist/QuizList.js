@@ -7,17 +7,17 @@ import ResultCard from "../../components/resultcard/ResultCard";
 import Container from '@material-ui/core/Container';
 
 
-export const QuizList = ({ match }) => {
+export const QuizList = (props) => {
     const dispatch = useDispatch(); //connect to store
     const store = useSelector(state => state);
-
-    let cardState = store.cardState;
-    console.log(match.params.email);
+    let cardState = store.cardState;    
+    const requestParams = new URLSearchParams(props.location.search);
+    const email = requestParams.get('email');
 
     useEffect(() => { //called the first time when component was loaded
         dispatch(getAllQuizesNames());
-        dispatch(setEmail(match.params.email));
-    },[]);
+        dispatch(setEmail(email));
+    },[email, dispatch]);
 
     return (
         <>

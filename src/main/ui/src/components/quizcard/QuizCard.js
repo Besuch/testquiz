@@ -54,7 +54,8 @@ export default function QuizCard(props) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                            <Button onClick={() => dispatch(getChosenQuiz({quizId: item.quizId, email}))} size="small">Start</Button>
+                            <Button variant="contained" color="primary"
+                                    onClick={() => dispatch(getChosenQuiz({quizId: item.quizId, email}))} size="small">Start</Button>
                     </CardActions>
                 </Card>
             ))}

@@ -3,6 +3,7 @@ package com.green.testquiz.converter;
 import com.green.testquiz.datalayer.entities.Quiz;
 import com.green.testquiz.datalayer.entities.Result;
 import com.green.testquiz.presentation.QuizDto;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,5 +38,22 @@ public class QuizConverter {
                         .map(questionConverter::toDto)
                         .collect(Collectors.toSet()))
                 .build();
+    }
+
+    public Quiz fromDto(QuizDto quizDto) {
+        Quiz quiz = Quiz.builder()
+                .quizMode(quizDto.getQuizMode())
+                .shortDescription(quizDto.getShortDescription())
+                .longDescription(quizDto.getLongDescription())
+                .name(quizDto.getName())
+                .questions(quizDto.getQuestionDtos().stream()
+                    .map(questionConverter::fromDto)
+                        .collect(Collectors.toSet()))
+                .build();
+                if (quizDto.getQuizId() != null) {
+                    quiz.setQuizId(new ObjectId(quizDto.getQuizId()));
+                }
+                return quiz;
+
     }
 }

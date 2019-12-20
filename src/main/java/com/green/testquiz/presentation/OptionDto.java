@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class OptionDto {
-	String optionId;
-	String text;
-	boolean isChecked;
+	private String optionId;
+	private String text;
+	private boolean isChecked;
+	private boolean isCorrect;
 }

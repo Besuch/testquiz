@@ -1,18 +1,17 @@
 package com.green.testquiz.presentation;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.green.testquiz.enums.QuestionType;
-
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 @Builder
 public class QuestionDto {
-	String questionId;
-	String text;
-	QuestionType questionType;
-	Set<OptionDto> optionDtos;
+	private String questionId;
+	private String text;
+	private String description;
+	private QuestionType questionType;
+	private Set<OptionDto> optionDtos;
 }
