@@ -1,11 +1,6 @@
 package com.green.testquiz.service.impl;
 
-import com.green.testquiz.datalayer.entities.Account;
-import com.green.testquiz.datalayer.entities.Option;
-import com.green.testquiz.datalayer.entities.Question;
-import com.green.testquiz.datalayer.entities.Quiz;
-import com.green.testquiz.datalayer.entities.Result;
-import com.green.testquiz.datalayer.mocks.MockQuizList;
+import com.green.testquiz.datalayer.entities.*;
 import com.green.testquiz.enums.QuizMode;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
@@ -15,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -104,6 +100,6 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public Set<Result> findAll() {
-        return MockQuizList.MOCK_RESULT;
+        return new HashSet<>(resultRepository.findAll());
     }
 }
