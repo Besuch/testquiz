@@ -18,18 +18,26 @@ export function* watchQuizSaga() {
 
 function* getQuizNamesListRequest() {
     console.log("getQuizzesUrl = ", getQuizzesUrl())
-    const quizzes = yield fetch(getQuizzesUrl()).then(response => response.json()).then(response => response)
-        .catch(error => error);
+    const quizzes = yield fetch(getQuizzesUrl())
+        .then(response => response.json())
+        .then(response => response)
+        .catch(error => console.error(error));
     console.log("all quizzes: ", quizzes);
-    yield put(getAllQuizesNamesSuccess(quizzes))
+    if (quizzes) {
+        yield put(getAllQuizesNamesSuccess(quizzes))
+    }
 }
 
 function* loadChosenQuiz({ payload }) {
     const url = getQuizByIdUrl(payload.quizId, payload.email);
-    const quiz = yield fetch(url).then(response => response.json()).then(response => response)
-        .catch(error => error);
-    yield put(getChosenQuizSuccess(quiz));
-    yield put(resetCardPageInfo('QuestionCard'));
+    const quiz = yield fetch(url)
+        .then(response => response.json())
+        .then(response => response)
+        .catch(error => console.error(error));
+    if (quiz) {
+        yield put(getChosenQuizSuccess(quiz));
+        yield put(resetCardPageInfo('QuestionCard'));
+    }
 }
 
 function* sendReportToBack({ payload }) {
@@ -42,10 +50,13 @@ function* sendReportToBack({ payload }) {
           'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify(payload.option)
-    }).then(response => response.json()).then(response => response)
-        .catch(error => error);
+    }).then(response => response.json())
+        .then(response => response)
+        .catch(error => console.error(error));
     console.log("sendReportToBack response", response);
-    if (payload.isQuizSubmited) {
-        yield put(sendReportToBackEndResult(response));
+    if (response) {
+        if (payload.isQuizSubmited) {
+            yield put(sendReportToBackEndResult(response));
+        }
     }
 }
