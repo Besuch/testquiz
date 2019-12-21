@@ -1,12 +1,12 @@
 package com.green.testquiz.service.impl;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import com.green.testquiz.datalayer.entities.*;
+import com.green.testquiz.enums.AccountRole;
+import com.green.testquiz.enums.QuestionType;
+import com.green.testquiz.enums.QuizMode;
+import com.green.testquiz.repository.AccountRepository;
+import com.green.testquiz.repository.QuizRepository;
+import com.green.testquiz.repository.ResultRepository;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,17 +16,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.green.testquiz.datalayer.entities.Account;
-import com.green.testquiz.datalayer.entities.Option;
-import com.green.testquiz.datalayer.entities.Question;
-import com.green.testquiz.datalayer.entities.Quiz;
-import com.green.testquiz.datalayer.entities.Result;
-import com.green.testquiz.enums.AccountRole;
-import com.green.testquiz.enums.QuestionType;
-import com.green.testquiz.enums.QuizMode;
-import com.green.testquiz.repository.AccountRepository;
-import com.green.testquiz.repository.QuizRepository;
-import com.green.testquiz.repository.ResultRepository;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ResultServiceImplTest {
@@ -69,21 +66,18 @@ public class ResultServiceImplTest {
                 Question.builder()
                         .questionId(objectId)
                         .text("Question1")
-                        .description("description for Question1")
                         .questionType(QuestionType.ONE_CHOICE)
                         .options(options)
                         .build(),
                 Question.builder()
                         .questionId(objectId)
                         .text("Question2")
-                        .description("description for Question2")
                         .questionType(QuestionType.ONE_CHOICE)
                         .options(options)
                         .build(),
                 Question.builder()
                         .questionId(objectId)
                         .text("Question3")
-                        .description("description for Question3")
                         .questionType(QuestionType.ONE_CHOICE)
                         .options(options)
                         .build())

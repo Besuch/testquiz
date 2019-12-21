@@ -53,7 +53,6 @@ public class QuizServiceImplTest {
 				Question.builder()
 						.questionId(objectId)
 						.text("Question1")
-						.description("description for Question1")
 						.questionType(QuestionType.ONE_CHOICE)
 						.options(options)
 						.build(),
@@ -61,7 +60,6 @@ public class QuizServiceImplTest {
 				Question.builder()
 						.questionId(objectId)
 						.text("Question2")
-						.description("description for Question2")
 						.questionType(QuestionType.ONE_CHOICE)
 						.options(options)
 						.build(),
@@ -69,7 +67,6 @@ public class QuizServiceImplTest {
 				Question.builder()
 						.questionId(objectId)
 						.text("Question3")
-						.description("description for Question3")
 						.questionType(QuestionType.ONE_CHOICE)
 						.options(options)
 						.build())
