@@ -180,16 +180,4 @@ public class ResultServiceImplTest {
 
         Assert.assertEquals(expected, actual);
 	}
-
-    @Test
-    public void save() {
-    }
-
-    @Test
-    public void finishQuiz() {
-    }
-
-    @Test
-    public void findAll() {
-    }
 }
