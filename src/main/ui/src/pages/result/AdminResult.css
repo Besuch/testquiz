@@ -1,0 +1,29 @@
+.App {
+  text-align: left;
+  background-color: #3a9655;
+}
+
+.App-table{
+  border-width: 1px;
+  padding: 2px;
+  border-style: solid;
+  border-color: #999999;
+}
+
+.App-header {
+  background-color: #282c79;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  font-size: calc(10px + 2vmin);
+  color:#3a9655;
+}
+
+.btnDiv {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+  margin: 1em;
+}
+
