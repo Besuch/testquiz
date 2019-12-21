@@ -5,11 +5,13 @@ import com.green.testquiz.enums.AccountRole;
 import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class Account {
     @Id
     private ObjectId accountId;
