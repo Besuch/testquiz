@@ -71,7 +71,7 @@ class AdminResult extends Component {
                                     <StyledTableRow key={row.resultId}>
                                         <StyledTableCell align="left">{row.accountEmail}</StyledTableCell>
                                         <StyledTableCell align="left">{row.name}</StyledTableCell>
-                                        <StyledTableCell align="left">{row.statistics}%</StyledTableCell>
+                                        <StyledTableCell align="left">{ Math.round(row.statistics)}%</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>
