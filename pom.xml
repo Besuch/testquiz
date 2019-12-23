@@ -22,6 +22,11 @@
 		<yarn.version>v1.21.0</yarn.version>
 		<frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+
+		<sonar.projectKey>green</sonar.projectKey>
+		<sonar.organization>green</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>6cd0ec6ba0a1aae88d3ad041a0584e4235d4022e</sonar.login>
 	</properties>
 
 	<dependencies>
