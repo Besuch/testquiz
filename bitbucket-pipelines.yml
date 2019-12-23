@@ -34,9 +34,9 @@ pipelines:
     - step: &build-test-sonarcloud
         name: Analyze on SonarCloud
         script:
-          - mvn clean package org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          - mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           - pipe: sonarsource/sonarcloud-scan:1.0.1
             variables:
               SONAR_TOKEN: 'ce23b0fbe236c605104a534700b90308b12cfe07'
-              EXTRA_ARGS: -Dsonar.verbose="true" -Dsonar.projectVersion=GREEN-$BITBUCKET_BRANCH-1.0.0 -D sonar.java.binaries=target/classes
+              EXTRA_ARGS: -Dsonar.projectVersion=GREEN-$BITBUCKET_BRANCH-1.0.0
 
