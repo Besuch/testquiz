@@ -55,14 +55,14 @@ class QuizControllerTest {
                 "longDescription", QuizMode.ONE_WAY_DIRECTION, new HashSet<>());
 
         String path = BASE_URL + quizId + "?email=" + email;
-        when(resultServiceMock.getResult(quizId, email)).thenReturn(result);
+        when(resultServiceMock.startQuiz(quizId, email)).thenReturn(result);
         //when
         mockMvc.perform(
                 get(path)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         //then
-        verify(resultServiceMock).getResult(quizId, email);
+        verify(resultServiceMock).startQuiz(quizId, email);
         verifyNoMoreInteractions(resultServiceMock);
         verify(quizConverterMock).toDto(result);
         verifyNoMoreInteractions(quizConverterMock);
