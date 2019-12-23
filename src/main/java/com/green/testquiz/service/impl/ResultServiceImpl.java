@@ -94,7 +94,7 @@ public class ResultServiceImpl implements ResultService {
                 })
                 .count();
         Double percents = score / result.getQuestions().size() * 100;
-        result.setStatistics(percents);
+        result.setStatistics((double)Math.round(percents));
         return resultRepository.save(result);
     }
 
