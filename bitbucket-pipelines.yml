@@ -9,28 +9,6 @@ image: maven:3.6.1
 
 pipelines:
   default:
-    - step:
-        name: Build and test
-        image: maven:3
-        caches:
-          - maven
-        script:
-          - mvn -B clean verify
-    - step:
-        name: Create artifact
-        script:
-          - tar czfv application.tgz pom.xml src/
-        artifacts:
-          - application.tgz
-    - step:
-        name: Deploy to production
-        deployment: production
-        script:
-          - pipe: atlassian/heroku-deploy:0.1.1
-            variables:
-              HEROKU_API_KEY: '7c438dba-9978-4e1f-a965-fb71443289f5'
-              HEROKU_APP_NAME: 'quiz-green-luxoft'
-              ZIP_FILE: "application.tgz"
     - step: &build-test-sonarcloud
         name: Analyze on SonarCloud
         script:
@@ -38,5 +16,5 @@ pipelines:
           - pipe: sonarsource/sonarcloud-scan:1.0.1
             variables:
               SONAR_TOKEN: 'ce23b0fbe236c605104a534700b90308b12cfe07'
-              EXTRA_ARGS: -Dsonar.projectVersion=GREEN-$BITBUCKET_BRANCH-1.0.0
+              EXTRA_ARGS: -Dsonar.verbose="true" -Dsonar.projectVersion=GREEN-$BITBUCKET_BRANCH-1.0.0
 
