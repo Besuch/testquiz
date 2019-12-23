@@ -30,12 +30,9 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public Quiz create(Quiz quiz) {
         quiz.setQuizId(new ObjectId());
-        for(Question question : quiz.getQuestions()) {
-            question.setQuestionId(new ObjectId());
-            for (Option option : question.getOptions()) {
-                option.setOptionId(new ObjectId());
-            }
-        }
+        quiz.getQuestions().stream().forEach(question -> { question.setQuestionId(new ObjectId());
+            question.getOptions().stream().forEach(option -> option.setOptionId(new ObjectId()));
+        });
         return quizRepository.save(quiz);
     }
 
