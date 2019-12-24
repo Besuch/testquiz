@@ -76,7 +76,7 @@ public class QuizController {
     @PostMapping("/api/quizes")
     public QuizDto createQuiz(@RequestBody QuizDto quizDto) {
         Quiz quiz = quizConverter.fromDto(quizDto);
-        quiz = quizService.create(quiz);
-        return quizConverter.toDto(quiz);
+        Quiz createdQuiz = quizService.create(quiz);
+        return quizConverter.toDto(createdQuiz);
     }
 }
