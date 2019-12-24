@@ -7,12 +7,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {getChosenQuiz} from '../../action'
 import {useDispatch} from 'react-redux';
-import Grid from "../questioncard/QuestionCard";
 
 
 const useStyles = makeStyles({
     card: {
         minWidth: 275,
+        margin: '9px'
     },
     bullet: {
         display: 'inline-block',
