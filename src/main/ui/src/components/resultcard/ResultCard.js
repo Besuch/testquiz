@@ -28,7 +28,10 @@ export default function ResultCard(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const statistics = props.statistics;
+    let statistics;
+    props.statistics?
+        statistics = props.statistics
+        : statistics = '0';
 
     return (
         <>
