@@ -38,8 +38,8 @@ export default function ResultCard(props) {
             <Card className={classes.card}>
                 <CardContent>
                     <br/>
-                    <Typography variant="h5" component="h2">
-                        CONGRATULATION, YOUR RESULT IS <span>{statistics}</span> %
+                    <Typography align='center' variant="h5" component="h4">
+                        CONGRATULATION, YOUR RESULT IS <span>{statistics}</span>%
                     </Typography>
 
                     <Button onClick={() => dispatch(resetCardPageInfo("QuizCard"))} size="small"> OK </Button>

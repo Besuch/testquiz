@@ -1,4 +1,4 @@
-import {put, takeEvery} from 'redux-saga/effects';
+import {put, takeEvery, delay} from 'redux-saga/effects';
 import {
     GET_QUIZ_NAMES_LIST,
     getAllQuizesNamesSuccess,
@@ -23,6 +23,7 @@ function* getQuizNamesListRequest() {
         .then(response => response)
         .catch(error => console.error(error));
     console.log("all quizzes: ", quizzes);
+    yield delay(500, quizzes);
     if (quizzes) {
         yield put(getAllQuizesNamesSuccess(quizzes))
     }
@@ -41,7 +42,8 @@ function* loadChosenQuiz({ payload }) {
 }
 
 function* sendReportToBack({ payload }) {
-    const url = payload.isQuizSubmited ? postResultUrl(payload.quizId, payload.questionID, payload.email) : postProgressUrl(payload.quizId, payload.questionID, payload.email);
+    const url = payload.isQuizSubmited ? postResultUrl(payload.quizId, payload.questionID, payload.email)
+        : postProgressUrl(payload.quizId, payload.questionID, payload.email);
     const response = yield fetch(url, {
         method: 'post',
         headers: {
@@ -56,6 +58,7 @@ function* sendReportToBack({ payload }) {
     console.log("sendReportToBack response", response);
     if (response) {
         if (payload.isQuizSubmited) {
+            yield delay(500, response);
             yield put(sendReportToBackEndResult(response));
         }
     }
