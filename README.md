@@ -1,5 +1,15 @@
+Test accounts credentials:
+--------------------------
+user role:
+    email: user@gmail.com
+    pass: user
+    
+admin role:
+    email: admin@admin.com
+    pass: admin
 
-
+To start application:
+---------------------
 0) Start mongo db: 
 docker run -d -p 27017-27019:27017-27019 mongo
 1) mvn clean package
