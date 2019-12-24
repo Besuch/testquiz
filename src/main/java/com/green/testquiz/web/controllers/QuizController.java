@@ -4,8 +4,8 @@ import com.green.testquiz.converter.QuizConverter;
 import com.green.testquiz.converter.ResultConverter;
 import com.green.testquiz.datalayer.entities.Quiz;
 import com.green.testquiz.datalayer.entities.Result;
-import com.green.testquiz.exceptions.BadRequestException;
-import com.green.testquiz.exceptions.NotFoundException;
+import com.green.testquiz.exceptions.InvalidOperationException;
+import com.green.testquiz.exceptions.EntityNotFoundException;
 import com.green.testquiz.exceptions.UnauthorizedException;
 import com.green.testquiz.presentation.QuizDto;
 import com.green.testquiz.presentation.ResultDto;
@@ -44,7 +44,7 @@ public class QuizController {
 
     @GetMapping("/api/quiz/{quizId}")
     public QuizDto getQuiz(@PathVariable String quizId, @RequestParam String email)
-            throws UnauthorizedException, NotFoundException {
+            throws UnauthorizedException, EntityNotFoundException {
         Result result = resultService.startQuiz(quizId, email);
         return quizConverter.toDto(result);
     }
@@ -59,7 +59,7 @@ public class QuizController {
     @PostMapping("/api/progress/quizzes/{quizId}/questions/{questionId}/answers")
     public ResponseEntity saveAnswer(@PathVariable String quizId, @PathVariable String questionId,
                                         @RequestParam String email, @RequestBody List<String> optionIdList)
-            throws UnauthorizedException, BadRequestException {
+            throws UnauthorizedException, InvalidOperationException {
         resultService.save(email, quizId, questionId, optionIdList);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -67,7 +67,7 @@ public class QuizController {
     @PostMapping("/api/result/{quizId}/questions/{questionId}/answers")
     public ResponseEntity<Double> finishQuiz(@PathVariable String quizId, @PathVariable String questionId,
                                         @RequestParam String email, @RequestBody List<String> optionIdList)
-            throws UnauthorizedException, BadRequestException {
+            throws UnauthorizedException, InvalidOperationException {
         Result result = resultService.finishQuiz(email, quizId, questionId, optionIdList);
         return new ResponseEntity<>(result.getStatistics(), HttpStatus.OK);
     }

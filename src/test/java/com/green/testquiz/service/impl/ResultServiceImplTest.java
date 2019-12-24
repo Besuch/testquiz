@@ -4,7 +4,7 @@ import com.green.testquiz.datalayer.entities.*;
 import com.green.testquiz.enums.AccountRole;
 import com.green.testquiz.enums.QuestionType;
 import com.green.testquiz.enums.QuizMode;
-import com.green.testquiz.exceptions.NotFoundException;
+import com.green.testquiz.exceptions.EntityNotFoundException;
 import com.green.testquiz.exceptions.UnauthorizedException;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
@@ -115,7 +115,7 @@ public class ResultServiceImplTest {
     }
 
     @Test
-    public void shouldReturnResultWithoutStatistic() throws UnauthorizedException, NotFoundException {
+    public void shouldReturnResultWithoutStatistic() throws UnauthorizedException, EntityNotFoundException {
 		Account account = Account.builder()
                 .accountId(objectId)
                 .firstName("Name")
@@ -134,7 +134,7 @@ public class ResultServiceImplTest {
     }
 
     @Test
-    public void getResultTest() throws UnauthorizedException, NotFoundException {
+    public void getResultTest() throws UnauthorizedException, EntityNotFoundException {
 		Account account = Account.builder()
 				.accountId(objectId)
 				.firstName("Name")

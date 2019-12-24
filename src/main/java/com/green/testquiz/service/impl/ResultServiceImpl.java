@@ -2,8 +2,8 @@ package com.green.testquiz.service.impl;
 
 import com.green.testquiz.datalayer.entities.*;
 import com.green.testquiz.enums.QuizMode;
-import com.green.testquiz.exceptions.BadRequestException;
-import com.green.testquiz.exceptions.NotFoundException;
+import com.green.testquiz.exceptions.InvalidOperationException;
+import com.green.testquiz.exceptions.EntityNotFoundException;
 import com.green.testquiz.exceptions.UnauthorizedException;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
@@ -31,7 +31,7 @@ public class ResultServiceImpl implements ResultService {
     private AccountRepository accountRepository;
 
     @Override
-    public Result startQuiz(String quizId, String email) throws UnauthorizedException, NotFoundException {
+    public Result startQuiz(String quizId, String email) throws UnauthorizedException, EntityNotFoundException {
         Account account = accountRepository.findByEmail(email).orElseThrow(UnauthorizedException::new);
         Optional<Result> optionalResult = resultRepository.findByQuizIdAndAccountId(new ObjectId(quizId), account.getAccountId()).stream()
                 .filter(item -> item.getStatistics() == null)
@@ -39,7 +39,7 @@ public class ResultServiceImpl implements ResultService {
         if (optionalResult.isPresent()) {
             return optionalResult.get();
         }
-        Quiz quiz = quizRepository.findById(new ObjectId(quizId)).orElseThrow(NotFoundException::new);
+        Quiz quiz = quizRepository.findById(new ObjectId(quizId)).orElseThrow(() -> new EntityNotFoundException("quizId", quizId));
         Integer cursor = quiz.getQuizMode() == QuizMode.ONE_WAY_DIRECTION ? 0 : null;
         Result result = Result.builder()
                 .resultId(new ObjectId())
@@ -59,16 +59,16 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public Result save(String email, String quizId, String questionId, List<String> optionIdList)
-            throws UnauthorizedException, BadRequestException {
+            throws UnauthorizedException, InvalidOperationException {
         Account account = accountRepository.findByEmail(email).orElseThrow(UnauthorizedException::new);
         Result result = resultRepository.findByQuizIdAndAccountId(new ObjectId(quizId), account.getAccountId()).stream()
                 .filter(item -> item.getStatistics() == null)
                 .findFirst()
-                .orElseThrow(BadRequestException::new);
+                .orElseThrow(() -> new InvalidOperationException("unfinished quiz not found"));
         Question question = result.getQuestions().stream()
                 .filter(item -> questionId.equals(item.getQuestionId().toHexString()))
                 .findFirst()
-                .orElseThrow(BadRequestException::new);
+                .orElseThrow(() -> new InvalidOperationException("quiz does not contain question"));
         question.getOptions()
                 .forEach(option -> option.setChecked(optionIdList.contains(option.getOptionId().toHexString())));
         return resultRepository.save(result);
@@ -76,7 +76,7 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public Result finishQuiz(String email, String quizId, String questionId, List<String> optionIdList)
-            throws UnauthorizedException, BadRequestException {
+            throws UnauthorizedException, InvalidOperationException {
         Result result = save(email, quizId, questionId, optionIdList);
         double score = (double) result.getQuestions().stream()
                 .filter(question -> {
