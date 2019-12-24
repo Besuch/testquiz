@@ -58,7 +58,6 @@ function* sendReportToBack({ payload }) {
     console.log("sendReportToBack response", response);
     if (response) {
         if (payload.isQuizSubmited) {
-            yield delay(500, response);
             yield put(sendReportToBackEndResult(response));
         }
     }
