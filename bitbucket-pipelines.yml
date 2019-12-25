@@ -15,7 +15,7 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn -B clean verify
+          - mvn -B clean verify sonar:sonar
     - step:
         name: Create artifact
         script:

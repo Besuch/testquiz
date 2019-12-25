@@ -3,6 +3,8 @@ package com.green.testquiz.web.controllers;
 import com.green.testquiz.converter.QuizConverter;
 import com.green.testquiz.datalayer.entities.Result;
 import com.green.testquiz.enums.QuizMode;
+import com.green.testquiz.presentation.QuizDto;
+import com.green.testquiz.service.QuizService;
 import com.green.testquiz.service.ResultService;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -38,6 +43,9 @@ class QuizControllerTest {
 
     @Mock
     private QuizConverter quizConverterMock;
+
+    @Mock
+    private QuizService quizService;
 
     @BeforeEach
     public void setUp() {

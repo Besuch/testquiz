@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.bson.types.ObjectId;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -173,5 +174,35 @@ public class QuizConverterTest {
 		QuizDto actual = quizConverter.toDto(result);
 
 		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void fromDto() {
+		QuizDto quizDto = QuizDto.builder()
+				.quizId(objectId.toHexString())
+				.shortDescription("short description")
+				.longDescription("long description")
+				.name("Quiz")
+				.quizMode(QuizMode.ONE_WAY_DIRECTION)
+				.questionDtos(questionDtos)
+				.build();
+
+		Quiz expectedQuiz = Quiz.builder()
+				.quizId(objectId)
+				.name("Quiz")
+				.shortDescription("short description")
+				.longDescription("long description")
+				.quizMode(QuizMode.ONE_WAY_DIRECTION)
+				.questions(questions)
+				.build();
+
+		when(questionConverter.fromDto(questionDto1)).thenReturn(question1);
+		when(questionConverter.fromDto(questionDto2)).thenReturn(question2);
+		when(questionConverter.fromDto(questionDto3)).thenReturn(question3);
+
+		Quiz actualQuiz = quizConverter.fromDto(quizDto);
+
+		Assert.assertEquals(expectedQuiz, actualQuiz);
+
 	}
 }

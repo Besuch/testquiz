@@ -26,4 +26,23 @@ public class OptionConverterTest {
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void fromDto() {
+        optionConverter = new OptionConverter();
+        ObjectId objectId = new ObjectId();
+
+        OptionDto optionDto = OptionDto.builder()
+                .optionId(objectId.toHexString())
+                .text("Option")
+                .isCorrect(true)
+                .isChecked(false)
+                .build();
+
+        Option expected = Option.builder().optionId(objectId).text("Option").isChecked(false).build();
+
+        Option actual = optionConverter.fromDto(optionDto);
+
+        Assert.assertEquals(expected, actual);
+    }
 }
