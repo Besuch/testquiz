@@ -5,6 +5,7 @@ import com.green.testquiz.enums.AccountRole;
 import com.green.testquiz.enums.QuestionType;
 import com.green.testquiz.enums.QuizMode;
 import com.green.testquiz.exceptions.EntityNotFoundException;
+import com.green.testquiz.exceptions.InvalidOperationException;
 import com.green.testquiz.exceptions.UnauthorizedException;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
@@ -113,6 +114,14 @@ public class ResultServiceImplTest {
                 .quizMode(QuizMode.MULTI_WAY_DIRECTION)
                 .questions(questions)
                 .build();
+
+        account = Account.builder()
+                .accountId(objectId)
+                .firstName("Name")
+                .lastName("Surname")
+                .email(email)
+                .role(AccountRole.USER)
+                .build();
     }
 
     @Test
@@ -179,7 +188,7 @@ public class ResultServiceImplTest {
     }
 
     @Test
-    public void saveTest() {
+    public void saveTest() throws UnauthorizedException, InvalidOperationException {
         List<String> optionList = Arrays.asList(
                 option1.getOptionId().toHexString(),
                 option2.getOptionId().toHexString(),
@@ -187,7 +196,7 @@ public class ResultServiceImplTest {
 
         List<Result> results = Arrays.asList(result, resultWithoutStatistic);
 
-        when(accountRepository.findByEmail(email)).thenReturn(account);
+        when(accountRepository.findByEmail(email)).thenReturn(Optional.ofNullable(account));
         when(resultRepository.findByQuizIdAndAccountId(quizObjectId, account.getAccountId())).thenReturn(results);
         when(resultRepository.save(resultWithoutStatistic)).thenReturn(resultWithoutStatistic);
 
@@ -198,7 +207,7 @@ public class ResultServiceImplTest {
     }
 
     @Test
-    public void finishTest() {
+    public void finishTest() throws UnauthorizedException, InvalidOperationException {
         List<String> optionList = Arrays.asList(
                 option1.getOptionId().toHexString(),
                 option2.getOptionId().toHexString(),
@@ -207,7 +216,7 @@ public class ResultServiceImplTest {
 
         List<Result> results = Arrays.asList(result, resultWithoutStatistic);
 
-        when(accountRepository.findByEmail(email)).thenReturn(account);
+        when(accountRepository.findByEmail(email)).thenReturn(Optional.ofNullable(account));
         when(resultRepository.findByQuizIdAndAccountId(quizObjectId, account.getAccountId())).thenReturn(results);
         when(resultRepository.save(resultWithoutStatistic)).thenReturn(resultWithoutStatistic);
 
