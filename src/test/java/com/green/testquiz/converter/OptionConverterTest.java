@@ -39,7 +39,7 @@ public class OptionConverterTest {
                 .isChecked(false)
                 .build();
 
-        Option expected = Option.builder().optionId(objectId).text("Option").isChecked(false).build();
+        Option expected = Option.builder().optionId(objectId).text("Option").isChecked(false).isCorrect(true).build();
 
         Option actual = optionConverter.fromDto(optionDto);
 
