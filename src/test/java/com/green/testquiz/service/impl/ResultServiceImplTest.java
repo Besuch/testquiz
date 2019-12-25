@@ -16,10 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,20 +44,24 @@ public class ResultServiceImplTest {
     private Result result;
     private String email;
     private ObjectId quizObjectId;
+    private Account account;
     private String quizId;
+    private Option option1;
+    private Option option2;
+    private Option option3;
 
     @Before
     public void setUp() {
         objectId = new ObjectId();
         quizId = new ObjectId().toHexString();
         quizObjectId = new ObjectId(quizId);
-		email = "Test@gmail.com";
+        email = "Test@gmail.com";
 
-        options = Stream.of(
-                Option.builder().optionId(objectId).text("Option1").isCorrect(true).isChecked(true).build(),
-                Option.builder().optionId(objectId).text("Option2").isCorrect(false).isChecked(false).build(),
-                Option.builder().optionId(objectId).text("Option3").isCorrect(true).isChecked(false).build())
-                .collect(Collectors.toSet());
+        option1 = Option.builder().optionId(objectId).text("Option1").isCorrect(true).isChecked(false).build();
+        option2 = Option.builder().optionId(objectId).text("Option2").isCorrect(false).isChecked(true).build();
+        option3 = Option.builder().optionId(objectId).text("Option3").isCorrect(true).isChecked(true).build();
+
+        options = Stream.of(option1, option2, option3).collect(Collectors.toSet());
 
         questions = Stream.of(
                 Question.builder()
@@ -110,21 +111,22 @@ public class ResultServiceImplTest {
                 .quizMode(QuizMode.MULTI_WAY_DIRECTION)
                 .questions(questions)
                 .build();
-    }
 
-    @Test
-    public void shouldReturnResultWithoutStatistic() {
-		Account account = Account.builder()
+        account = Account.builder()
                 .accountId(objectId)
                 .firstName("Name")
                 .lastName("Surname")
                 .email(email)
                 .role(AccountRole.USER)
                 .build();
-		List<Result> results = Collections.singletonList(resultWithoutStatistic);
+    }
 
-		when(accountRepository.findByEmail(email)).thenReturn(account);
-		when(resultRepository.findByQuizIdAndAccountId(quizObjectId, objectId)).thenReturn(results);
+    @Test
+    public void shouldReturnResultWithoutStatistic() {
+        List<Result> results = Collections.singletonList(resultWithoutStatistic);
+
+        when(accountRepository.findByEmail(email)).thenReturn(account);
+        when(resultRepository.findByQuizIdAndAccountId(quizObjectId, objectId)).thenReturn(results);
 
         Result actual = resultService.getResult(quizId, email);
 
@@ -133,24 +135,16 @@ public class ResultServiceImplTest {
 
     @Test
     public void getResultTest() {
-		Account account = Account.builder()
-				.accountId(objectId)
-				.firstName("Name")
-				.lastName("Surname")
-				.email(email)
-				.role(AccountRole.USER)
-				.build();
-
-		List<Result> results = Collections.singletonList(result);
+        List<Result> results = Collections.singletonList(result);
 
         Optional<Quiz> optionalQuiz = Optional.ofNullable(Quiz.builder()
-				.quizId(quizObjectId)
-				.name("Quiz2")
-				.shortDescription("quiz2 short description")
-				.longDescription("quiz2 long description")
-				.quizMode(QuizMode.MULTI_WAY_DIRECTION)
-				.questions(questions)
-				.build());
+                .quizId(quizObjectId)
+                .name("Quiz2")
+                .shortDescription("quiz2 short description")
+                .longDescription("quiz2 long description")
+                .quizMode(QuizMode.MULTI_WAY_DIRECTION)
+                .questions(questions)
+                .build());
 
         when(accountRepository.findByEmail(email)).thenReturn(account);
         when(resultRepository.findByQuizIdAndAccountId(quizObjectId, objectId)).thenReturn(results);
@@ -173,5 +167,70 @@ public class ResultServiceImplTest {
                 .build();
 
         Assert.assertEquals(expected, actual);
-	}
+    }
+
+    @Test
+    public void saveTest() {
+        List<String> optionList = Arrays.asList(
+                option1.getOptionId().toHexString(),
+                option2.getOptionId().toHexString(),
+                option3.getOptionId().toHexString());
+
+        List<Result> results = Arrays.asList(result, resultWithoutStatistic);
+
+        when(accountRepository.findByEmail(email)).thenReturn(account);
+        when(resultRepository.findByQuizIdAndAccountId(quizObjectId, account.getAccountId())).thenReturn(results);
+        when(resultRepository.save(resultWithoutStatistic)).thenReturn(resultWithoutStatistic);
+
+
+        Result actualResult = resultService.save(email, quizId, objectId.toHexString(), optionList);
+
+        Assert.assertEquals(resultWithoutStatistic, actualResult);
+    }
+
+    @Test
+    public void finishTest() {
+        List<String> optionList = Arrays.asList(
+                option1.getOptionId().toHexString(),
+                option2.getOptionId().toHexString(),
+                option3.getOptionId().toHexString());
+
+
+        List<Result> results = Arrays.asList(result, resultWithoutStatistic);
+
+        when(accountRepository.findByEmail(email)).thenReturn(account);
+        when(resultRepository.findByQuizIdAndAccountId(quizObjectId, account.getAccountId())).thenReturn(results);
+        when(resultRepository.save(resultWithoutStatistic)).thenReturn(resultWithoutStatistic);
+
+
+        Result actualResult = resultService.finishQuiz(email, quizId, objectId.toHexString(), optionList);
+
+        Result expectedResult = Result.builder()
+                .resultId(objectId)
+                .statistics(0.0)
+                .accountId(objectId)
+                .accountEmail(email)
+                .quizId(quizObjectId)
+                .cursor(0)
+                .name("Quiz1")
+                .shortDescription("quiz1 short description")
+                .longDescription("quiz1 long description")
+                .quizMode(QuizMode.ONE_WAY_DIRECTION)
+                .questions(questions)
+                .build();
+
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void findAllTest() {
+        Set<Result> expected = Stream.of(result, resultWithoutStatistic).collect(Collectors.toSet());
+        List<Result> resultList = new ArrayList<>(expected);
+
+        when(resultRepository.findAll()).thenReturn(resultList);
+
+        Set<Result> actual = resultService.findAll();
+
+        Assert.assertEquals(expected, actual);
+    }
 }

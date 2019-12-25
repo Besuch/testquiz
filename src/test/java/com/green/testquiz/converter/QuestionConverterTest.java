@@ -7,6 +7,7 @@ import com.green.testquiz.presentation.OptionDto;
 import com.green.testquiz.presentation.QuestionDto;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.mockito.Mockito.when;
 
@@ -27,39 +30,56 @@ public class QuestionConverterTest {
     @Mock
     private OptionConverter optionConverter;
 
-    @Test
-    public void toDto() {
-        ObjectId objectId = new ObjectId();
+    private ObjectId objectId;
 
-        Option option1 = new Option(objectId, "Option1", true, false);
-        Option option2 = new Option(objectId, "Option2", true, false);
-        Option option3 = new Option(objectId, "Option3", false, true);
-        Set<Option> options = new HashSet<>();
-        options.add(option1);
-        options.add(option2);
-        options.add(option3);
+    private Option option1;
+    private Option option2;
+    private Option option3;
+    private Set<Option> options;
 
-        OptionDto optionDto1 = OptionDto.builder()
+    private OptionDto optionDto1;
+    private OptionDto optionDto2;
+    private OptionDto optionDto3;
+    private Set<OptionDto> optionDtos;
+
+    @Before
+    public void setUp() {
+        objectId = new ObjectId();
+
+        option1 = new Option(objectId, "Option1", true, false);
+        option2 = new Option(objectId, "Option2", true, false);
+        option3 = new Option(objectId, "Option3", false, true);
+        options = Stream.of(option1, option2, option3).collect(Collectors.toSet());
+
+        optionDto1 = OptionDto.builder()
                 .optionId(objectId.toHexString())
                 .text("Option1")
                 .isChecked(false)
                 .build();
-        OptionDto optionDto2 = OptionDto.builder()
+
+        optionDto2 = OptionDto.builder()
                 .optionId(objectId.toHexString())
                 .text("Option2")
                 .isChecked(false)
                 .build();
-        OptionDto optionDto3 = OptionDto.builder()
+
+        optionDto3 = OptionDto.builder()
                 .optionId(objectId.toHexString())
                 .text("Option3")
                 .isChecked(true)
                 .build();
-        Set<OptionDto> optionDtos = new HashSet<>();
-        optionDtos.add(optionDto1);
-        optionDtos.add(optionDto2);
-        optionDtos.add(optionDto3);
+        optionDtos = Stream.of(optionDto1, optionDto2, optionDto3).collect(Collectors.toSet());
+    }
 
-        Question question = new Question(objectId, "Question", QuestionType.ONE_CHOICE, options);
+    @Test
+    public void toDto() {
+        Question question = Question.builder()
+                .questionId(objectId)
+                .text("Question")
+                .questionType(QuestionType.ONE_CHOICE)
+                .options(options)
+                .build();
+
         QuestionDto expected = QuestionDto.builder()
                 .questionId(objectId.toHexString())
                 .questionType(QuestionType.ONE_CHOICE)
@@ -72,6 +92,31 @@ public class QuestionConverterTest {
         when(optionConverter.toDto(option3)).thenReturn(optionDto3);
 
         QuestionDto actual = questionConverter.toDto(question);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void fromDto() {
+        QuestionDto questionDto = QuestionDto.builder()
+                .questionId(objectId.toHexString())
+                .questionType(QuestionType.ONE_CHOICE)
+                .text("Question")
+                .optionDtos(optionDtos)
+                .build();
+
+        Question expected = Question.builder()
+                .questionId(objectId)
+                .text("Question")
+                .questionType(QuestionType.ONE_CHOICE)
+                .options(options)
+                .build();
+
+        when(optionConverter.fromDto(optionDto1)).thenReturn(option1);
+        when(optionConverter.fromDto(optionDto2)).thenReturn(option2);
+        when(optionConverter.fromDto(optionDto3)).thenReturn(option3);
+
+        Question actual = questionConverter.fromDto(questionDto);
 
         Assert.assertEquals(expected, actual);
     }
