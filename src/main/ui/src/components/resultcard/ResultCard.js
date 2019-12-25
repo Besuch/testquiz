@@ -28,15 +28,18 @@ export default function ResultCard(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const statistics = props.statistics;
+    let statistics;
+    props.statistics?
+        statistics = props.statistics
+        : statistics = '0';
 
     return (
         <>
             <Card className={classes.card}>
                 <CardContent>
                     <br/>
-                    <Typography variant="h5" component="h2">
-                        CONGRATULATION, YOUR RESULT IS <span>{statistics}</span> %
+                    <Typography align='center' variant="h5" component="h4">
+                        CONGRATULATION, YOUR RESULT IS <span>{statistics}</span>%
                     </Typography>
 
                     <Button onClick={() => dispatch(resetCardPageInfo("QuizCard"))} size="small"> OK </Button>

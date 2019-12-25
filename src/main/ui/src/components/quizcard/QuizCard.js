@@ -7,11 +7,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {getChosenQuiz} from '../../action'
 import {useDispatch} from 'react-redux';
+import CircularIndeterminate from '../../components/spinner/CircularIndeterminate';
 
 
 const useStyles = makeStyles({
     card: {
         minWidth: 275,
+        margin: '9px'
     },
     bullet: {
         display: 'inline-block',
@@ -40,7 +42,7 @@ export default function QuizCard(props) {
     return (
 
         <>
-            {quizNamesArr.length && quizNamesArr.map(item => (
+            {(quizNamesArr.length) ? quizNamesArr.map(item => (
                 <Card className={classes.card} key={item.quizId}>
                     <CardContent>
                         <Typography className={classes.pos} color="textSecondary">
@@ -58,7 +60,8 @@ export default function QuizCard(props) {
                                     onClick={() => dispatch(getChosenQuiz({quizId: item.quizId, email}))} size="small">Start</Button>
                     </CardActions>
                 </Card>
-            ))}
+            ))
+            : <CircularIndeterminate/>}
         </>
 
     );

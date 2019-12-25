@@ -28,6 +28,8 @@ const useStyles = makeStyles({
         marginBottom: 12,
         marginTop: 12,
     },
+
+
 });
 
 
@@ -91,12 +93,6 @@ export default function QuestionCard(props) {
     ? <RadioButtonsGroup question = {question} addItem = {addItem}/>
     : <CheckboxesGroup question = {question} addItem = {addItem}/>;
 
-    // if(question.questionType === "MULTIPLE_CHOICE"){
-    //     optiondisplay = <CheckboxesGroup question = {question} />
-    // } else {
-    //     optiondisplay = <RadioButtonsGroup setValue={setValue} value={value} question = {question}/>;
-    //
-    // }
 
     return (
         <>
