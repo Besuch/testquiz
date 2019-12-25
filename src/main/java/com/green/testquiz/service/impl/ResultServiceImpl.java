@@ -2,6 +2,9 @@ package com.green.testquiz.service.impl;
 
 import com.green.testquiz.datalayer.entities.*;
 import com.green.testquiz.enums.QuizMode;
+import com.green.testquiz.exceptions.InvalidOperationException;
+import com.green.testquiz.exceptions.EntityNotFoundException;
+import com.green.testquiz.exceptions.UnauthorizedException;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
 import com.green.testquiz.repository.ResultRepository;
@@ -28,62 +31,54 @@ public class ResultServiceImpl implements ResultService {
     private AccountRepository accountRepository;
 
     @Override
-    public Result getResult(String quizId, String email) {
-        Result result;
-        //TODO if not found logic
-        Account account = accountRepository.findByEmail(email);
+    public Result startQuiz(String quizId, String email) throws UnauthorizedException, EntityNotFoundException {
+        Account account = accountRepository.findByEmail(email).orElseThrow(UnauthorizedException::new);
         Optional<Result> optionalResult = resultRepository.findByQuizIdAndAccountId(new ObjectId(quizId), account.getAccountId()).stream()
                 .filter(item -> item.getStatistics() == null)
                 .findFirst();
-
         if (optionalResult.isPresent()) {
-            result = optionalResult.get();
-        } else {
-            Quiz quiz = quizRepository.findById(new ObjectId(quizId)).get();
-            result = new Result(
-                    new ObjectId(),
-                    null,
-                    account.getAccountId(),
-                    account.getEmail(),
-                    quiz.getQuizMode() == QuizMode.ONE_WAY_DIRECTION ? 0 : null,
-                    quiz.getQuizId(),
-                    quiz.getName(),
-                    quiz.getShortDescription(),
-                    quiz.getLongDescription(),
-                    quiz.getQuizMode(),
-                    quiz.getQuestions()
-                    );
-            resultRepository.save(result);
+            return optionalResult.get();
         }
+        Quiz quiz = quizRepository.findById(new ObjectId(quizId)).orElseThrow(() -> new EntityNotFoundException("quizId", quizId));
+        Integer cursor = quiz.getQuizMode() == QuizMode.ONE_WAY_DIRECTION ? 0 : null;
+        Result result = Result.builder()
+                .resultId(new ObjectId())
+                .accountId(account.getAccountId())
+                .accountEmail(account.getEmail())
+                .cursor(cursor)
+                .quizId(quiz.getQuizId())
+                .name(quiz.getName())
+                .shortDescription(quiz.getShortDescription())
+                .longDescription(quiz.getLongDescription())
+                .quizMode(quiz.getQuizMode())
+                .questions(quiz.getQuestions())
+                .build();
+        resultRepository.save(result);
         return result;
     }
 
     @Override
-    public Result save(String email, String quizId, String questionId, List<String> optionIdList) {
-        Account account = accountRepository.findByEmail(email);
+    public Result save(String email, String quizId, String questionId, List<String> optionIdList)
+            throws UnauthorizedException, InvalidOperationException {
+        Account account = accountRepository.findByEmail(email).orElseThrow(UnauthorizedException::new);
         Result result = resultRepository.findByQuizIdAndAccountId(new ObjectId(quizId), account.getAccountId()).stream()
                 .filter(item -> item.getStatistics() == null)
                 .findFirst()
-                .get();
+                .orElseThrow(() -> new InvalidOperationException("unfinished quiz not found"));
         Question question = result.getQuestions().stream()
                 .filter(item -> questionId.equals(item.getQuestionId().toHexString()))
                 .findFirst()
-                .get();
-
-        for(Option option : question.getOptions()) {
-            if (optionIdList.contains(option.getOptionId().toHexString())) {
-                option.setChecked(true);
-            } else {
-                option.setChecked(false);
-            }
-        }
+                .orElseThrow(() -> new InvalidOperationException("quiz does not contain question"));
+        question.getOptions()
+                .forEach(option -> option.setChecked(optionIdList.contains(option.getOptionId().toHexString())));
         return resultRepository.save(result);
     }
 
     @Override
-    public Result finishQuiz(String email, String quizId, String questionId, List<String> optionIdList) {
+    public Result finishQuiz(String email, String quizId, String questionId, List<String> optionIdList)
+            throws UnauthorizedException, InvalidOperationException {
         Result result = save(email, quizId, questionId, optionIdList);
-        Double score = (double) result.getQuestions().stream()
+        double score = (double) result.getQuestions().stream()
                 .filter(question -> {
                     for(Option option : question.getOptions()) {
                         if (option.isChecked() != option.isCorrect()) {

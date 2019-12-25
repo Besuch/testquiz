@@ -4,6 +4,8 @@ import com.green.testquiz.datalayer.entities.*;
 import com.green.testquiz.enums.AccountRole;
 import com.green.testquiz.enums.QuestionType;
 import com.green.testquiz.enums.QuizMode;
+import com.green.testquiz.exceptions.EntityNotFoundException;
+import com.green.testquiz.exceptions.UnauthorizedException;
 import com.green.testquiz.repository.AccountRepository;
 import com.green.testquiz.repository.QuizRepository;
 import com.green.testquiz.repository.ResultRepository;
@@ -113,7 +115,7 @@ public class ResultServiceImplTest {
     }
 
     @Test
-    public void shouldReturnResultWithoutStatistic() {
+    public void shouldReturnResultWithoutStatistic() throws UnauthorizedException, EntityNotFoundException {
 		Account account = Account.builder()
                 .accountId(objectId)
                 .firstName("Name")
@@ -123,16 +125,16 @@ public class ResultServiceImplTest {
                 .build();
 		List<Result> results = Collections.singletonList(resultWithoutStatistic);
 
-		when(accountRepository.findByEmail(email)).thenReturn(account);
+		when(accountRepository.findByEmail(email)).thenReturn(Optional.ofNullable(account));
 		when(resultRepository.findByQuizIdAndAccountId(quizObjectId, objectId)).thenReturn(results);
 
-        Result actual = resultService.getResult(quizId, email);
+        Result actual = resultService.startQuiz(quizId, email);
 
         Assert.assertEquals(resultWithoutStatistic, actual);
     }
 
     @Test
-    public void getResultTest() {
+    public void getResultTest() throws UnauthorizedException, EntityNotFoundException {
 		Account account = Account.builder()
 				.accountId(objectId)
 				.firstName("Name")
@@ -152,12 +154,12 @@ public class ResultServiceImplTest {
 				.questions(questions)
 				.build());
 
-        when(accountRepository.findByEmail(email)).thenReturn(account);
+        when(accountRepository.findByEmail(email)).thenReturn(Optional.ofNullable(account));
         when(resultRepository.findByQuizIdAndAccountId(quizObjectId, objectId)).thenReturn(results);
         when(quizRepository.findById(quizObjectId)).thenReturn(optionalQuiz);
 
 
-        Result actual = resultService.getResult(quizId, email);
+        Result actual = resultService.startQuiz(quizId, email);
 
         Result expected = Result.builder()
                 .resultId(actual.getResultId())
