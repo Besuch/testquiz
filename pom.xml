@@ -27,28 +27,8 @@
         <sonar.organization>quiz-green</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.login>790d61bdf3b7f52d2f12072ba606475de67d5b29</sonar.login>
-        <sonar.exclusions>com/green/testquiz/datalayer/mocks/**</sonar.exclusions>
+        <sonar.exclusions>**/mocks/**</sonar.exclusions>
     </properties>
-
-    <profiles>
-        <profile>
-            <id>report</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <!-- Exclude model classes (POJO's) -->
-                                <exclude>com.green.testquiz.datalayer.mocks.MockQuizList</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <dependencies>
         <dependency>
