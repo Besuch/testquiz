@@ -1,0 +1,2 @@
+#This property allows coverage and style checkers to ignore all Lombok generated code
+lombok.addLombokGeneratedAnnotation = true
