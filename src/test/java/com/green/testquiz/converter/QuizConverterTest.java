@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.green.testquiz.datalayer.entities.Option;
@@ -26,7 +27,6 @@ import com.green.testquiz.presentation.OptionDto;
 import com.green.testquiz.presentation.QuestionDto;
 import com.green.testquiz.presentation.QuizDto;
 
-@RunWith(MockitoJUnitRunner.class)
 public class QuizConverterTest {
 
 	@InjectMocks
@@ -53,6 +53,8 @@ public class QuizConverterTest {
 
 	@Before
 	public void init() {
+		MockitoAnnotations.initMocks(this);
+
 		options = Stream.of(
 				Option.builder().optionId(objectId).text("Option1").isCorrect(true).isChecked(true).build(),
 				Option.builder().optionId(objectId).text("Option2").isCorrect(false).isChecked(true).build(),
