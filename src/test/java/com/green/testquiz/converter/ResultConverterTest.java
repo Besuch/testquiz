@@ -8,11 +8,11 @@ import java.util.stream.Stream;
 
 import org.bson.types.ObjectId;
 import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.green.testquiz.datalayer.entities.Option;
 import com.green.testquiz.datalayer.entities.Question;
@@ -23,7 +23,7 @@ import com.green.testquiz.presentation.OptionDto;
 import com.green.testquiz.presentation.QuestionDto;
 import com.green.testquiz.presentation.ResultDto;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ResultConverterTest {
 
 	@InjectMocks
