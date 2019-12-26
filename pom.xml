@@ -30,6 +30,26 @@
             <sonar.coverage.exclusions>com.green.testquiz.datalayer.mocks.MockQuizList</sonar.coverage.exclusions>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>report</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <!-- Exclude model classes (POJO's) -->
+                                <exclude>com.green.testquiz.datalayer.mocks.MockQuizList</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
