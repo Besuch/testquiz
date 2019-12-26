@@ -7,15 +7,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.bson.types.ObjectId;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.green.testquiz.datalayer.entities.Option;
 import com.green.testquiz.datalayer.entities.Question;
@@ -27,6 +25,7 @@ import com.green.testquiz.presentation.OptionDto;
 import com.green.testquiz.presentation.QuestionDto;
 import com.green.testquiz.presentation.QuizDto;
 
+@ExtendWith(MockitoExtension.class)
 public class QuizConverterTest {
 
 	@InjectMocks
@@ -51,10 +50,8 @@ public class QuizConverterTest {
 	private QuestionDto questionDto3;
 	private Set<QuestionDto> questionDtos;
 
-	@Before
+	@BeforeEach
 	public void init() {
-		MockitoAnnotations.initMocks(this);
-
 		options = Stream.of(
 				Option.builder().optionId(objectId).text("Option1").isCorrect(true).isChecked(true).build(),
 				Option.builder().optionId(objectId).text("Option2").isCorrect(false).isChecked(true).build(),
