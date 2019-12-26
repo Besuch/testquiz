@@ -10,12 +10,12 @@ import java.util.stream.Stream;
 
 import org.bson.types.ObjectId;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.green.testquiz.datalayer.entities.Option;
 import com.green.testquiz.datalayer.entities.Question;
@@ -24,7 +24,7 @@ import com.green.testquiz.enums.QuestionType;
 import com.green.testquiz.enums.QuizMode;
 import com.green.testquiz.repository.QuizRepository;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class QuizServiceImplTest {
 
 	@InjectMocks
@@ -41,7 +41,7 @@ public class QuizServiceImplTest {
 
 	private Quiz quiz;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		options = Stream.of(
 				Option.builder().optionId(objectId).text("Option1").isCorrect(true).isChecked(true).build(),

@@ -1,11 +1,13 @@
 package com.green.testquiz.web.controllers;
 
-import com.green.testquiz.converter.QuizConverter;
-import com.green.testquiz.datalayer.entities.Result;
-import com.green.testquiz.enums.QuizMode;
-import com.green.testquiz.presentation.QuizDto;
-import com.green.testquiz.service.QuizService;
-import com.green.testquiz.service.ResultService;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashSet;
+
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,16 +19,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.green.testquiz.converter.QuizConverter;
+import com.green.testquiz.datalayer.entities.Result;
+import com.green.testquiz.enums.QuizMode;
+import com.green.testquiz.service.QuizService;
+import com.green.testquiz.service.ResultService;
 
 
 @ExtendWith(MockitoExtension.class)

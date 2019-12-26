@@ -12,12 +12,13 @@ import com.green.testquiz.repository.QuizRepository;
 import com.green.testquiz.repository.ResultRepository;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,7 +26,7 @@ import java.util.stream.Stream;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ResultServiceImplTest {
 
     @InjectMocks
@@ -53,7 +54,7 @@ public class ResultServiceImplTest {
     private Option option2;
     private Option option3;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         objectId = new ObjectId();
         quizId = new ObjectId().toHexString();
